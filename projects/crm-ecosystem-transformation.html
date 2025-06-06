@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Integrated CRM Ecosystem Transformation</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+    }
+    h1, h2, h3 {
+      color: #38bdf8;
+    }
+    a {
+      color: #93c5fd;
+    }
+    .highlight {
+      background: #1e293b;
+      border-left: 4px solid #38bdf8;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1em;
+      border-radius: 4px;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .metric {
+      background: #1f2937;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      color: #facc15;
+      box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+    }
+    .chart-container {
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+    .back-button {
+      display: block;
+      width: fit-content;
+      margin: 3rem auto 0;
+      background-color: #38bdf8;
+      color: #0f0f0f;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      text-align: center;
+    }
+    .back-button:hover {
+      background-color: #60a5fa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="project-header">
+      <h1 class="project-title">Integrated CRM Ecosystem Transformation & Automation Hub</h1>
+      <p class="project-subtitle">End-to-End CRM Modernization with Multi-Platform Integration and Process Automation</p>
+    </section>
+
+    <section class="project-section">
+      <h2>Project Objectives</h2>
+      <p class="highlight">
+        To eliminate data silos, reduce manual work, and create a scalable CRM backbone with integrated platforms like WhatsApp, TTCE, and Academy forms. Key targets were zero lead leakage, improved conversions, and CRM unification.
+      </p>
+    </section>
+
+    <section class="project-section">
+      <h2>Outcome</h2>
+      <ul>
+        <li>Salesform CRM migration with 100% data integrity</li>
+        <li>81.24% improvement in data accuracy</li>
+        <li>Zero lead leakage since June 2024</li>
+        <li>Unified lead flow across all platforms</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2>Key Metrics</h2>
+      <div class="metrics">
+        <div class="metric"><strong>29K+</strong><br />Records Corrected</div>
+        <div class="metric"><strong>159,952</strong><br />Leads Updated</div>
+        <div class="metric"><strong>₹30,000</strong><br />Monthly Savings</div>
+        <div class="metric"><strong>81.24%</strong><br />Accuracy Gain</div>
+        <div class="metric"><strong>2+ Hrs</strong><br />Time Saved Weekly</div>
+        <div class="metric"><strong>46 QLs</strong><br />from AI Workshop</div>
+      </div>
+    </section>
+
+    <section class="chart-container">
+      <canvas id="accuracyChart"></canvas>
+    </section>
+
+    <section class="project-section">
+      <h2>My Role</h2>
+      <p class="highlight">CRM Transformation Program Manager</p>
+
+      <h2>Responsibilities</h2>
+      <ul>
+        <li>Planned and led CRM ecosystem overhaul across 3 business units</li>
+        <li>Managed Salesforce to Salesform migration</li>
+        <li>Built automated qualification systems</li>
+        <li>Integrated WhatsApp, webinar, and registration platforms</li>
+        <li>Implemented bot-led nurturing & CRM hygiene protocols</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2>Deliverables</h2>
+      <ul>
+        <li>Salesform CRM deployment with custom lead routing</li>
+        <li>Automation-led ₹30K savings/month</li>
+        <li>Centralized dashboard and hygiene tracking</li>
+        <li>AI-based QL qualification system</li>
+      </ul>
+    </section>
+
+    <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('accuracyChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Before', 'After'],
+        datasets: [{
+          label: 'Data Accuracy Improvement',
+          data: [47, 81.24],
+          backgroundColor: ['#f87171', '#38bdf8']
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#f5f5f5'
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              color: '#f5f5f5'
+            }
+          },
+          x: {
+            ticks: {
+              color: '#f5f5f5'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
