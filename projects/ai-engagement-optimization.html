@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered Communication & Engagement Optimization</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+    }
+    h1, h2, h3 {
+      color: #38bdf8;
+    }
+    .highlight {
+      background: #1e293b;
+      border-left: 4px solid #38bdf8;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .metric {
+      background: #1f2937;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      flex: 1 1 200px;
+      color: #facc15;
+      box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+    }
+    .project-section {
+      margin-bottom: 2rem;
+    }
+    .chart-container {
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+    .back-button {
+      display: block;
+      margin: 3rem auto 0;
+      text-align: center;
+      background: #38bdf8;
+      color: #0f0f0f;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      width: fit-content;
+      transition: background-color 0.3s;
+    }
+    .back-button:hover {
+      background-color: #60a5fa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AI-Powered Communication & Engagement Optimization</h1>
+    <p class="highlight">Implementation of AI-Driven Call Management and Multi-Channel Engagement System</p>
+
+    <section class="project-section">
+      <h2>Objectives</h2>
+      <p>
+        To deploy cutting-edge AI technology for call auditing, quality monitoring, and automated engagement across multi-lingual regions. Enhance communication efficiency, reduce manual workload, and enable scalable webinar and follow-up systems.
+      </p>
+    </section>
+
+    <section class="project-section">
+      <h2>Outcomes</h2>
+      <ul>
+        <li>Reduced call audit time from 5 to 1 minute</li>
+        <li>₹6,573+ monthly savings per BDM</li>
+        <li>Automated webinar systems for 126+ registrations</li>
+        <li>2+ hrs/week saved through Zoom and WhatsApp automation</li>
+        <li>90% delivery, 78% read rates for engagement workflows</li>
+      </ul>
+    </section>
+
+    <div class="metrics">
+      <div class="metric"><strong>75%</strong><br>Time Saved on Call Audits</div>
+      <div class="metric"><strong>₹6,573</strong><br>Monthly ROI per BDM</div>
+      <div class="metric"><strong>126+</strong><br>Webinar Registrations</div>
+      <div class="metric"><strong>90% / 78%</strong><br>Delivery / Read Rates</div>
+      <div class="metric"><strong>45 min</strong><br>Daily BDM Time Saved</div>
+    </div>
+
+    <section class="chart-container">
+      <canvas id="savingsChart"></canvas>
+    </section>
+
+    <section class="project-section">
+      <h2>My Role</h2>
+      <p class="highlight">AI Implementation Program Manager & Product Integration Lead</p>
+
+      <h2>Responsibilities</h2>
+      <ul>
+        <li>Led Call AI evaluation and rollout across regions</li>
+        <li>Integrated webinar and Zoom platforms with CRM</li>
+        <li>Automated engagement and attendance tracking</li>
+        <li>Negotiated vendor contracts reducing costs by 60%</li>
+        <li>Developed ROI and quality monitoring dashboards</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2>Deliverables</h2>
+      <ul>
+        <li>AI-powered call auditing solution</li>
+        <li>Automated webinar workflows</li>
+        <li>Real-time Zoom attendance sync</li>
+        <li>Integrated WhatsApp engagement flows</li>
+        <li>Scalable multi-lingual communication systems</li>
+      </ul>
+    </section>
+
+    <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('savingsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Before', 'After'],
+        datasets: [{
+          label: 'Call Audit Time (min)',
+          data: [5, 1],
+          backgroundColor: 'rgba(56, 189, 248, 0.2)',
+          borderColor: '#38bdf8',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#f5f5f5'
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: '#f5f5f5'
+            }
+          },
+          x: {
+            ticks: {
+              color: '#f5f5f5'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
