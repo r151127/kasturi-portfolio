@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scalable Multi-Product Webinar Platform</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3 {
+      color: #38bdf8;
+    }
+    .highlight {
+      background: #1e293b;
+      padding: 1rem;
+      border-left: 4px solid #38bdf8;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .metric {
+      background: #1f2937;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      color: #facc15;
+      transition: transform 0.3s;
+    }
+    .metric:hover {
+      transform: scale(1.05);
+    }
+    .back-button {
+      display: block;
+      margin: 3rem auto;
+      text-align: center;
+      background: #38bdf8;
+      color: #0f0f0f;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      width: fit-content;
+    }
+    .project-section {
+      margin-bottom: 2rem;
+    }
+    .chart-container {
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Scalable Multi-Product Webinar & Live Session Platform</h1>
+    <p class="highlight">
+      Enterprise-Wide Webinar Platform Implementation with Automated Registration and Engagement Systems
+    </p>
+
+    <section class="project-section">
+      <h2>Objectives</h2>
+      <p>
+        Design and deploy a unified webinar platform across products and regions, standardizing registration, attendance tracking, and engagement workflows while ensuring scalability and user experience.
+      </p>
+    </section>
+
+    <section class="project-section">
+      <h2>Outcomes</h2>
+      <div class="metrics-grid">
+        <div class="metric"><strong>300+</strong><br>Registrations per session</div>
+        <div class="metric"><strong>6+</strong><br>Languages supported</div>
+        <div class="metric"><strong>100%</strong><br>Automation of registration</div>
+        <div class="metric"><strong>0%</strong><br>Manual session handling</div>
+        <div class="metric"><strong>Pan-India</strong><br>Regional scalability</div>
+      </div>
+    </section>
+
+    <section class="chart-container">
+      <canvas id="radarChart"></canvas>
+    </section>
+
+    <section class="project-section">
+      <h2>My Role</h2>
+      <p class="highlight">Platform Implementation Project Manager & Digital Infrastructure Lead</p>
+
+      <h2>Responsibilities</h2>
+      <ul>
+        <li>Led webinar platform strategy across Academy, NIAT, Intensive</li>
+        <li>Migrated platform from Google Meet to Zoom</li>
+        <li>Implemented bot-led multi-language registration workflows</li>
+        <li>Automated attendance tracking with CRM</li>
+        <li>Developed analytics and engagement dashboards</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2>Deliverables</h2>
+      <ul>
+        <li>Unified platform supporting multiple products and languages</li>
+        <li>Automated pre/post webinar qualification systems</li>
+        <li>CRM-integrated attendance tracking</li>
+        <li>Engagement tracking with real-time analytics</li>
+        <li>Standardized multi-regional deployment protocols</li>
+      </ul>
+    </section>
+
+    <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Automation Level', 'Scalability', 'User Experience', 'Multi-language Support', 'CRM Integration'],
+        datasets: [{
+          label: 'Capability Maturity',
+          data: [100, 95, 90, 85, 90],
+          fill: true,
+          backgroundColor: 'rgba(56, 189, 248, 0.2)',
+          borderColor: '#38bdf8',
+          pointBackgroundColor: '#38bdf8'
+        }]
+      },
+      options: {
+        scales: {
+          r: {
+            angleLines: { color: '#334155' },
+            grid: { color: '#334155' },
+            pointLabels: { color: '#f5f5f5' },
+            ticks: { color: '#f5f5f5', backdropColor: 'transparent', beginAtZero: true, max: 100 }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#f5f5f5'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
