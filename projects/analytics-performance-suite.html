@@ -2,48 +2,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Comprehensive Analytics & Performance Intelligence Platform</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics & Performance Intelligence Platform</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { background: #0a192f; color: #e2e8f0; font-family: sans-serif; padding: 2rem; line-height: 1.6; }
-    h1, h2 { color: #64ffda; }
-    a { color: #64ffda; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    ul { padding-left: 1.2rem; }
+    body {
+      background-color: #0f0f0f;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+    }
+    h1, h2 {
+      color: #38bdf8;
+    }
+    .highlight {
+      background: #1e293b;
+      padding: 1rem;
+      border-left: 4px solid #38bdf8;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+    ul {
+      padding-left: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .metric {
+      flex: 1 1 250px;
+      background-color: #1f2937;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      color: #facc15;
+      box-shadow: 0 2px 6px rgba(255,255,255,0.05);
+    }
+    .chart-container {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+    .back-button {
+      display: block;
+      margin: 3rem auto;
+      text-align: center;
+      background: #38bdf8;
+      color: #0f0f0f;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      width: fit-content;
+    }
   </style>
 </head>
 <body>
   <h1>Comprehensive Analytics & Performance Intelligence Platform</h1>
-  <h2>Project Title:</h2>
-  <p>Implementation of Multi-Product Analytics Dashboard Suite with Real-Time Performance Tracking</p>
-  <h2>Project Objectives:</h2>
-  <p>To develop and deploy a comprehensive analytics ecosystem spanning Academy, NIAT, and Intensive products, providing real-time insights into lead flows, CBA performance, incentive calculations, and operational efficiency. This initiative aimed to transform data-driven decision making across all business verticals while reducing manual reporting efforts and improving strategic visibility.</p>
-  <h2>Outcome:</h2>
-  <p>Successfully delivered 25+ specialized dashboards including CAC analysis, lead scoring, TAT tracking, incentives automation, and performance monitoring systems. Achieved significant time savings (14+ hours monthly for incentive calculations alone), improved data accuracy by 81%+, and enabled proactive management through real-time analytics across all product lines.</p>
-  <h2>My Role:</h2>
-  <p>Analytics Program Manager & Strategic Implementation Lead</p>
-  <h2>My Responsibilities:</h2>
-  <ul>
-    <li>Led cross-functional analytics requirements gathering across Academy, NIAT, and Intensive product teams</li>
-    <li>Designed and implemented dashboard architecture using Looker Studio, Floww.ai, and custom database solutions</li>
-    <li>Managed vendor relationships and tool integrations for analytics platforms</li>
-    <li>Coordinated with CRM teams to ensure data consistency and accuracy across all reporting systems</li>
-    <li>Established KPIs and performance metrics framework for BDAs, BDMs, and CBAs</li>
-    <li>Oversaw the automation of incentive calculations, reducing manual effort and eliminating calculation errors</li>
-    <li>Implemented lead scoring models and conversion funnel analysis to optimize sales processes</li>
-    <li>Delivered training programs for business teams on dashboard usage and data interpretation</li>
-  </ul>
-  <h2>Deliverables:</h2>
-  <ul>
-    <li>25+ operational dashboards covering lead management, performance tracking, and financial analytics</li>
-    <li>Automated incentive calculation system saving 14+ hours monthly with 100% accuracy improvement</li>
-    <li>Real-time TAT analysis dashboards reducing process bottlenecks across channels and regions</li>
-    <li>CAC and conversion funnel analytics improving marketing ROI visibility</li>
-    <li>Employee attrition analysis dashboard supporting HR strategic decisions</li>
-    <li>Comprehensive lead scoring and qualification tracking systems</li>
-    <li>6-hour weekly time reduction for Operations Team through streamlined processes</li>
-    <li>Enhanced data-driven decision making across 3 major product verticals (Academy, NIAT, Intensive)</li>
-  </ul>
-  <p><a href="../index.html">← Back to Portfolio</a></p>
+  <p class="highlight">Implementation of Multi-Product Analytics Dashboard Suite with Real-Time Performance Tracking</p>
+
+  <section>
+    <h2>Project Objectives</h2>
+    <p>
+      To develop and deploy a comprehensive analytics ecosystem spanning Academy, NIAT, and Intensive products,
+      providing real-time insights into lead flows, CBA performance, incentive calculations, and operational efficiency.
+      This initiative aimed to transform data-driven decision making across all business verticals while reducing
+      manual reporting efforts and improving strategic visibility.
+    </p>
+  </section>
+
+  <section>
+    <h2>Outcome</h2>
+    <p>
+      Successfully delivered 25+ specialized dashboards including CAC analysis, lead scoring, TAT tracking, incentives
+      automation, and performance monitoring systems. Achieved significant time savings (14+ hours monthly for incentive
+      calculations alone), improved data accuracy by 81%+, and enabled proactive management through real-time analytics
+      across all product lines.
+    </p>
+  </section>
+
+  <h2>Key Metrics</h2>
+  <div class="metrics">
+    <div class="metric"><strong>25+</strong><br>Dashboards Delivered</div>
+    <div class="metric"><strong>81%+</strong><br>Accuracy Improvement</div>
+    <div class="metric"><strong>14+ hrs/month</strong><br>Incentive Time Saved</div>
+    <div class="metric"><strong>6 hrs/week</strong><br>Ops Team Time Saved</div>
+    <div class="metric"><strong>3</strong><br>Product Verticals</div>
+    <div class="metric"><strong>100%</strong><br>Automated Incentives</div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="analyticsChart"></canvas>
+  </div>
+
+  <section>
+    <h2>My Role</h2>
+    <p class="highlight">Analytics Program Manager & Strategic Implementation Lead</p>
+  </section>
+
+  <section>
+    <h2>Responsibilities</h2>
+    <ul>
+      <li>Led cross-functional analytics requirements gathering across Academy, NIAT, and Intensive.</li>
+      <li>Designed dashboard architecture using Looker Studio, Floww.ai, and databases.</li>
+      <li>Managed vendor relationships and analytics tool integrations.</li>
+      <li>Ensured data accuracy and consistency across CRM-connected dashboards.</li>
+      <li>Established KPI frameworks and implemented incentive automation.</li>
+      <li>Built lead scoring and conversion funnel systems.</li>
+      <li>Delivered training on dashboard usage and data interpretation.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Deliverables</h2>
+    <ul>
+      <li>25+ operational dashboards for performance and financial insights.</li>
+      <li>Automated incentive calculation engine saving 14+ hrs monthly.</li>
+      <li>Real-time TAT analysis dashboards reducing bottlenecks.</li>
+      <li>CAC and funnel analytics improving marketing ROI visibility.</li>
+      <li>Employee attrition dashboard enabling HR insights.</li>
+      <li>Lead scoring and qualification tracking system.</li>
+    </ul>
+  </section>
+
+  <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+
+  <script>
+    const ctx = document.getElementById('analyticsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Incentives', 'TAT Tracking', 'Lead Scoring', 'Attrition', 'CAC', 'Ops Intelligence'],
+        datasets: [{
+          label: 'Analytics Impact Score',
+          data: [95, 85, 90, 75, 88, 92],
+          backgroundColor: 'rgba(56, 189, 248, 0.2)',
+          borderColor: '#38bdf8',
+          pointBackgroundColor: '#38bdf8'
+        }]
+      },
+      options: {
+        scales: {
+          r: {
+            angleLines: { color: '#334155' },
+            grid: { color: '#334155' },
+            pointLabels: { color: '#f5f5f5' },
+            ticks: {
+              color: '#f5f5f5',
+              backdropColor: 'transparent',
+              beginAtZero: true,
+              max: 100
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#f5f5f5'
+            }
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
