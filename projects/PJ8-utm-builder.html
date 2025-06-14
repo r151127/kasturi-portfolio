@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulk UTM Builder & TinyURL Analytics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+    }
+    h1, h2 {
+      color: #38bdf8;
+    }
+    .highlight {
+      background: #1e293b;
+      padding: 1rem;
+      border-left: 4px solid #38bdf8;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+    ul, ol {
+      padding-left: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .metric {
+      flex: 1 1 250px;
+      background-color: #1f2937;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      color: #38bdf8;
+      box-shadow: 0 2px 6px rgba(255,255,255,0.04);
+      font-size: 1.18rem;
+    }
+    .metric strong {
+      color: #facc15;
+      font-size: 2rem;
+      display: block;
+    }
+    .chart-container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: #181f2a;
+      border-radius: 12px;
+      padding: 1.5rem 0 0.5rem 0;
+    }
+    .back-button {
+      display: block;
+      margin: 3rem auto 1rem auto;
+      text-align: center;
+      background: #38bdf8;
+      color: #0f0f0f;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      width: fit-content;
+    }
+    a.doc-link {
+      display: block;
+      text-align: right;
+      color: #38bdf8;
+      margin-top: 2rem;
+      text-decoration: underline;
+    }
+    @media (max-width: 800px) {
+      body { padding: 0.5rem; }
+      .metrics { flex-direction: column; }
+      .metric { font-size: 1rem; }
+      .chart-container { padding: 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Bulk UTM Builder & TinyURL Analytics</h1>
+  <p class="highlight">
+    Implementation of Automated UTM Campaign Link Generation and Analytics Tool
+  </p>
+
+  <section>
+    <h2>Project Objectives</h2>
+    <p>
+      To implement a seamless tool for automated UTM link generation—both single and bulk—across the marketing org, with standardized parameters, real-time TinyURL shortening (including custom aliases), and click analytics for every link. The goal: eliminate manual errors, accelerate campaign launches, and provide a unified dashboard for attribution and optimization.
+    </p>
+  </section>
+
+  <section>
+    <h2>Outcome</h2>
+    <p>
+      The platform standardized all campaign link generation, allowed non-technical teams to self-serve, and provided auto-updating analytics in a single dashboard. Both single and bulk (sheet-driven) links are now tracked in real time, with auto-shortening, error handling, and CSV export for compliance and reporting.
+    </p>
+  </section>
+
+  <h2>Key Metrics</h2>
+  <div class="metrics">
+    <div class="metric"><strong>100%</strong><br>UTM Link Standardization</div>
+    <div class="metric"><strong>4×</strong><br>Faster Campaign Launch</div>
+    <div class="metric"><strong>2000+/mo</strong><br>Links Tracked</div>
+    <div class="metric"><strong>80%</strong><br>Less Reporting Time</div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="utmChart"></canvas>
+  </div>
+
+  <section>
+    <h2>My Role</h2>
+    <p class="highlight">Project Manager</p>
+  </section>
+
+  <section>
+    <h2>Responsibilities</h2>
+    <ul>
+      <li>Defined standard UTM conventions with stakeholders and mapped automation workflow.</li>
+      <li>Coordinated UI, Apps Script, and TinyURL API integration for both web and sheet-based link generation.</li>
+      <li>Developed dashboard to merge all single and bulk-generated links, with click analytics via TinyURL API.</li>
+      <li>Led team onboarding and drove adoption to >99% compliance.</li>
+      <li>Managed documentation, data export/audit, and error-proofing.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Deliverables</h2>
+    <ul>
+      <li>Single and bulk (Google Sheet) UTM link builder tools.</li>
+      <li>TinyURL API integration with alias validation and fallback.</li>
+      <li>Analytics dashboard with filters, search, export, and click tracking.</li>
+      <li>Documentation, training, and compliance artifacts.</li>
+    </ul>
+  </section>
+
+  <a class="doc-link" href="https://docs.google.com/document/d/your-google-doc-link" target="_blank">
+    📄 View full project documentation
+  </a>
+  <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+
+  <script>
+    const ctx = document.getElementById('utmChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+          {
+            label: 'Single (App)',
+            data: [320, 450, 420, 600, 530, 640],
+            backgroundColor: '#38bdf8'
+          },
+          {
+            label: 'Bulk (Sheet)',
+            data: [680, 950, 1200, 1400, 1800, 2000],
+            backgroundColor: '#facc15'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#f5f5f5' },
+            grid: { color: '#334155' }
+          },
+          x: {
+            ticks: { color: '#f5f5f5' },
+            grid: { color: '#334155' }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: { color: '#f5f5f5' }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
