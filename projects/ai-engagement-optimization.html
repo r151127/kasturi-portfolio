@@ -1,152 +1,464 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI-Powered Communication & Engagement Optimization</title>
-  <link rel="stylesheet" href="../styles.css">
+  <title>AI-Powered Engagement Optimization | Kasturi Vankela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --bg: #0a192f;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #64ffda;
+      --highlight: #112240;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 2rem;
     }
-    h1, h2, h3 {
-      color: #38bdf8;
+
+    /* Project Header */
+    .project-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      margin-bottom: 3rem;
     }
-    .highlight {
-      background: #1e293b;
-      border-left: 4px solid #38bdf8;
-      padding: 1rem;
+
+    .project-header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-item i {
+      color: var(--accent);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Project Sections */
+    .project-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .highlight-box {
+      background: rgba(100, 255, 218, 0.05);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
       border-radius: 4px;
       margin-bottom: 2rem;
     }
-    .metrics {
-      display: flex;
-      flex-wrap: wrap;
+
+    /* Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.5rem;
-      margin: 2rem 0;
+      margin: 3rem 0;
     }
-    .metric {
-      background: #1f2937;
-      padding: 1rem;
+
+    .metric-card {
+      background: var(--highlight);
+      padding: 1.5rem;
       border-radius: 8px;
       text-align: center;
-      flex: 1 1 200px;
-      color: #facc15;
-      box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.1);
     }
-    .project-section {
-      margin-bottom: 2rem;
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Chart */
     .chart-container {
-      max-width: 600px;
-      margin: 2rem auto;
+      background: var(--highlight);
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 3rem 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    /* Solution Showcase */
+    .solution-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .solution-card {
+      background: var(--highlight);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .solution-card h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .solution-card h3 i {
+      font-size: 1.2rem;
+    }
+
+    /* Lists */
+    .styled-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .styled-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .styled-list li::before {
+      content: '→';
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+
+    /* Back Button */
     .back-button {
-      display: block;
-      margin: 3rem auto 0;
-      text-align: center;
-      background: #38bdf8;
-      color: #0f0f0f;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
       text-decoration: none;
-      width: fit-content;
-      transition: background-color 0.3s;
+      margin: 3rem 0;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.3);
     }
+
     .back-button:hover {
-      background-color: #60a5fa;
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateX(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 2rem;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>AI-Powered Communication & Engagement Optimization</h1>
-    <p class="highlight">Implementation of AI-Driven Call Management and Multi-Channel Engagement System</p>
+    <header class="project-header">
+      <div class="project-meta">
+        <span class="meta-item"><i class="fas fa-calendar-alt"></i> Jan 2023 - Present</span>
+        <span class="meta-item"><i class="fas fa-user-tie"></i> AI Implementation Lead</span>
+        <span class="meta-item"><i class="fas fa-building"></i> NxtWave</span>
+      </div>
+      
+      <h1>AI-Powered Communication & Engagement Optimization</h1>
+      <p class="project-subtitle">Implementation of AI-Driven Call Management and Multi-Channel Engagement System</p>
+      
+      <div class="project-tags">
+        <span class="project-tag"><i class="fas fa-robot"></i> AI Call Auditing</span>
+        <span class="project-tag"><i class="fab fa-whatsapp"></i> WhatsApp</span>
+        <span class="project-tag"><i class="fas fa-video"></i> Zoom Integration</span>
+        <span class="project-tag"><i class="fas fa-language"></i> Multilingual</span>
+        <span class="project-tag"><i class="fas fa-chart-line"></i> ROI Analytics</span>
+      </div>
+    </header>
 
     <section class="project-section">
-      <h2>Objectives</h2>
-      <p>
-        To deploy cutting-edge AI technology for call auditing, quality monitoring, and automated engagement across multi-lingual regions. Enhance communication efficiency, reduce manual workload, and enable scalable webinar and follow-up systems.
-      </p>
+      <h2 class="section-title">Optimization Impact</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">75%</div>
+          <div class="metric-label">Call Audit Time Reduction</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">₹6,573+</div>
+          <div class="metric-label">Monthly ROI per BDM</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">126+</div>
+          <div class="metric-label">Webinar Registrations</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">90% / 78%</div>
+          <div class="metric-label">Delivery / Read Rates</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">45 min</div>
+          <div class="metric-label">Daily BDM Time Saved</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">60%</div>
+          <div class="metric-label">Cost Reduction</div>
+        </div>
+      </div>
     </section>
 
     <section class="project-section">
-      <h2>Outcomes</h2>
-      <ul>
-        <li>Reduced call audit time from 5 to 1 minute</li>
-        <li>₹6,573+ monthly savings per BDM</li>
-        <li>Automated webinar systems for 126+ registrations</li>
-        <li>2+ hrs/week saved through Zoom and WhatsApp automation</li>
-        <li>90% delivery, 78% read rates for engagement workflows</li>
+      <h2 class="section-title">Project Overview</h2>
+      <div class="highlight-box">
+        <p>Deployed cutting-edge AI technology for call auditing, quality monitoring, and automated engagement across Telugu, Tamil, and multi-lingual regions to enhance communication efficiency and create scalable engagement solutions.</p>
+      </div>
+      
+      <h3>Key Objectives</h3>
+      <ul class="styled-list">
+        <li>Reduce manual call auditing time by 75%+</li>
+        <li>Improve call quality through AI monitoring</li>
+        <li>Create scalable engagement solutions for webinars</li>
+        <li>Implement multi-lingual support for regional operations</li>
+        <li>Generate measurable ROI through automation</li>
       </ul>
     </section>
 
-    <div class="metrics">
-      <div class="metric"><strong>75%</strong><br>Time Saved on Call Audits</div>
-      <div class="metric"><strong>₹6,573</strong><br>Monthly ROI per BDM</div>
-      <div class="metric"><strong>126+</strong><br>Webinar Registrations</div>
-      <div class="metric"><strong>90% / 78%</strong><br>Delivery / Read Rates</div>
-      <div class="metric"><strong>45 min</strong><br>Daily BDM Time Saved</div>
-    </div>
-
-    <section class="chart-container">
-      <canvas id="savingsChart"></canvas>
+    <section class="project-section">
+      <h2 class="section-title">AI Solutions Implemented</h2>
+      <div class="solution-showcase">
+        <div class="solution-card">
+          <h3><i class="fas fa-robot"></i> Call AI Auditing</h3>
+          <p>Reduced call audit time from 4-5 minutes to just 1 minute with automated quality scoring</p>
+        </div>
+        <div class="solution-card">
+          <h3><i class="fas fa-video"></i> Zoom Automation</h3>
+          <p>Integrated attendance tracking saving 2+ hours weekly for operations teams</p>
+        </div>
+        <div class="solution-card">
+          <h3><i class="fab fa-whatsapp"></i> WhatsApp Workflows</h3>
+          <p>Automated engagement sequences with 90% delivery and 78% read rates</p>
+        </div>
+        <div class="solution-card">
+          <h3><i class="fas fa-chalkboard-teacher"></i> Webinar Systems</h3>
+          <p>Scalable management for 126+ registrations with reduced friction</p>
+        </div>
+        <div class="solution-card">
+          <h3><i class="fas fa-language"></i> Multilingual Support</h3>
+          <p>Regional implementations in Telugu and Tamil with expansion framework</p>
+        </div>
+        <div class="solution-card">
+          <h3><i class="fas fa-chart-line"></i> ROI Dashboards</h3>
+          <p>Quantified ₹6,573+ monthly savings per BDM through automation</p>
+        </div>
+      </div>
     </section>
 
     <section class="project-section">
-      <h2>My Role</h2>
-      <p class="highlight">AI Implementation Program Manager & Product Integration Lead</p>
-
-      <h2>Responsibilities</h2>
-      <ul>
-        <li>Led Call AI evaluation and rollout across regions</li>
-        <li>Integrated webinar and Zoom platforms with CRM</li>
-        <li>Automated engagement and attendance tracking</li>
-        <li>Negotiated vendor contracts reducing costs by 60%</li>
-        <li>Developed ROI and quality monitoring dashboards</li>
+      <h2 class="section-title">Results Achieved</h2>
+      <div class="chart-container">
+        <canvas id="savingsChart"></canvas>
+      </div>
+      
+      <ul class="styled-list">
+        <li>75% reduction in call audit time (5 min → 1 min)</li>
+        <li>₹6,573+ monthly savings per BDM through automation</li>
+        <li>126+ webinar registrations per pilot with streamlined access</li>
+        <li>90% delivery and 78% read rates for engagement workflows</li>
+        <li>45 minutes daily time savings per BDM</li>
+        <li>60% cost reduction in vendor negotiations</li>
+        <li>Eliminated multiple OTP verifications reducing registration friction</li>
       </ul>
     </section>
 
     <section class="project-section">
-      <h2>Deliverables</h2>
-      <ul>
-        <li>AI-powered call auditing solution</li>
-        <li>Automated webinar workflows</li>
-        <li>Real-time Zoom attendance sync</li>
-        <li>Integrated WhatsApp engagement flows</li>
-        <li>Scalable multi-lingual communication systems</li>
+      <h2 class="section-title">My Contributions</h2>
+      <div class="highlight-box">
+        <p>As AI Implementation Project Manager & Product Integration Lead, I spearheaded the deployment of these AI-powered solutions across multiple regions and platforms.</p>
+      </div>
+      
+      <h3>Key Responsibilities</h3>
+      <ul class="styled-list">
+        <li>Led evaluation, selection, and implementation of Call AI technology</li>
+        <li>Managed pilot programs in Telugu and Tamil regions</li>
+        <li>Coordinated integration with CRM and calling infrastructure</li>
+        <li>Designed automated webinar registration and engagement workflows</li>
+        <li>Optimized Zoom platform with attendance tracking automation</li>
+        <li>Negotiated vendor contracts achieving 60%+ cost reductions</li>
+        <li>Established AI-driven quality monitoring frameworks</li>
+        <li>Implemented WhatsApp integration for webinar access</li>
+        <li>Managed cross-functional teams for implementation and training</li>
+        <li>Created ROI measurement frameworks to track success metrics</li>
       </ul>
     </section>
 
-    <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+    <section class="project-section">
+      <h2 class="section-title">Technical Implementation</h2>
+      <div class="project-tags" style="margin-bottom: 2rem;">
+        <span class="project-tag"><i class="fas fa-robot"></i> Call AI</span>
+        <span class="project-tag"><i class="fab fa-whatsapp"></i> WhatsApp API</span>
+        <span class="project-tag"><i class="fas fa-video"></i> Zoom API</span>
+        <span class="project-tag"><i class="fas fa-chart-bar"></i> Analytics</span>
+        <span class="project-tag"><i class="fas fa-language"></i> NLP</span>
+      </div>
+      
+      <h3>Solution Architecture</h3>
+      <ul class="styled-list">
+        <li>AI-powered call transcription and sentiment analysis</li>
+        <li>Automated quality scoring with custom thresholds</li>
+        <li>Real-time Zoom webinar attendance synchronization</li>
+        <li>Multi-lingual NLP for regional language support</li>
+        <li>WhatsApp Business API integration for engagement workflows</li>
+        <li>Custom ROI dashboards with cost-benefit analysis</li>
+      </ul>
+    </section>
+
+    <a href="https://r151127.github.io/kasturi-portfolio/" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
   </div>
 
   <script>
+    // Savings Chart
     const ctx = document.getElementById('savingsChart').getContext('2d');
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Before', 'After'],
+        labels: ['Before Implementation', 'After Implementation'],
         datasets: [{
-          label: 'Call Audit Time (min)',
+          label: 'Call Audit Time (minutes)',
           data: [5, 1],
-          backgroundColor: 'rgba(56, 189, 248, 0.2)',
-          borderColor: '#38bdf8',
+          backgroundColor: 'rgba(100, 255, 218, 0.2)',
+          borderColor: 'rgba(100, 255, 218, 1)',
+          borderWidth: 2,
           fill: true,
-          tension: 0.3
+          tension: 0.3,
+          pointBackgroundColor: 'rgba(100, 255, 218, 1)',
+          pointBorderColor: '#fff',
+          pointHoverRadius: 6
         }]
       },
       options: {
+        responsive: true,
         plugins: {
           legend: {
             labels: {
-              color: '#f5f5f5'
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Call Audit Time Reduction',
+            color: '#64ffda',
+            font: {
+              family: "'Space Grotesk', sans-serif",
+              size: 16,
+              weight: '600'
             }
           }
         },
@@ -154,12 +466,24 @@
           y: {
             beginAtZero: true,
             ticks: {
-              color: '#f5f5f5'
+              color: '#94a3b8',
+              font: {
+                family: "'Space Mono', monospace"
+              }
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.1)'
             }
           },
           x: {
             ticks: {
-              color: '#f5f5f5'
+              color: '#94a3b8',
+              font: {
+                family: "'Space Mono', monospace"
+              }
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.1)'
             }
           }
         }
