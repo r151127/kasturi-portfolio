@@ -1,10 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kasturi Vankela | Project Manager</title>
+  <title>Kasturi Vankela | Strategic Project Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --bg: #0a192f;
@@ -12,6 +15,8 @@
       --muted: #94a3b8;
       --accent: #64ffda;
       --highlight: #112240;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
     }
 
     * {
@@ -21,16 +26,19 @@
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       background-color: var(--bg);
       color: var(--text);
+      line-height: 1.6;
       display: flex;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    /* Sidebar */
     aside {
-      width: 280px;
-      background: var(--highlight);
+      width: 300px;
+      background: linear-gradient(180deg, var(--highlight) 0%, rgba(17, 34, 64, 0.9) 100%);
       padding: 3rem 2rem;
       display: flex;
       flex-direction: column;
@@ -38,68 +46,413 @@
       position: fixed;
       height: 100%;
       border-right: 1px solid #233554;
+      z-index: 10;
+      transition: var(--transition);
+      backdrop-filter: blur(5px);
+    }
+
+    .profile-header {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .profile-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1rem;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
     }
 
     aside h1 {
       color: var(--accent);
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .tagline {
+      display: inline-block;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
     }
 
     aside p, aside a {
       color: var(--muted);
       font-size: 0.95rem;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.8rem;
       text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     aside a:hover {
       color: var(--accent);
+      transform: translateX(3px);
     }
 
+    .contact-info {
+      margin-top: 2rem;
+    }
+
+    .contact-info i {
+      width: 20px;
+      color: var(--accent);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      font-size: 1.2rem;
+      color: var(--muted);
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    /* Main Content */
     main {
-      margin-left: 280px;
-      padding: 3rem;
-      width: calc(100% - 280px);
+      margin-left: 300px;
+      padding: 4rem;
+      width: calc(100% - 300px);
       overflow-y: auto;
     }
 
     section {
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
+      max-width: 800px;
     }
 
     h2 {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       color: var(--accent);
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    /* About Section */
+    #about p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Experience Section */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: var(--accent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--highlight);
+    }
+
+    .timeline-date {
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .timeline-content h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .timeline-content p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
     }
 
     .project {
       background-color: var(--highlight);
-      padding: 1.5rem;
-      border-left: 4px solid var(--accent);
-      margin-bottom: 1.5rem;
-      border-radius: 5px;
+      padding: 1.8rem;
+      border-radius: 8px;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-color: rgba(100, 255, 218, 0.3);
+    }
+
+    .project::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    .project:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project h4 {
+      margin-bottom: 1rem;
     }
 
     .project h4 a {
       color: var(--accent);
       font-size: 1.2rem;
       text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    .project h4 a:hover {
+      color: var(--text);
     }
 
     .project p {
       color: var(--muted);
       font-size: 0.95rem;
+      margin-bottom: 1.5rem;
     }
 
+    .project-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .metric {
+      background: rgba(100, 255, 218, 0.05);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .metric-value {
+      color: var(--accent);
+      font-weight: 600;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Certifications Section */
+    .certifications-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .certification {
+      background: var(--highlight);
+      padding: 1.2rem;
+      border-radius: 5px;
+      transition: var(--transition);
+    }
+
+    .certification:hover {
+      transform: translateX(5px);
+    }
+
+    .certification a {
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: var(--transition);
+    }
+
+    .certification a:hover {
+      color: var(--text);
+    }
+
+    .certification i {
+      font-size: 1.2rem;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
       color: var(--muted);
-      font-size: 0.8rem;
-      margin-top: 3rem;
+      font-size: 0.9rem;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    section {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      aside {
+        width: 250px;
+        padding: 2rem 1.5rem;
+      }
+      main {
+        margin-left: 250px;
+        padding: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      aside {
+        width: 100%;
+        position: relative;
+        height: auto;
+        padding: 2rem;
+        border-right: none;
+        border-bottom: 1px solid #233554;
+      }
+      main {
+        margin-left: 0;
+        width: 100%;
+        padding: 2rem;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Special Effects */
+    .glow {
+      text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+    }
+
+    .highlight-text {
+      background: linear-gradient(90deg, var(--accent), #3a7bd5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+    }
+
+    /* Project Impact Badges */
+    .impact-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(100, 255, 218, 0.3);
     }
   </style>
 </head>
@@ -107,118 +460,307 @@
 
 <aside>
   <div>
-    <h1>Kasturi Vankela</h1>
-    <p>Project Manager</p>
-    <p>Agile Strategist | Data-Driven Leader</p>
+    <div class="profile-header">
+      <h1 class="glow">Kasturi Vankela</h1>
+      <span class="tagline">Strategic Project Leader</span>
+      <p>Agile Strategist | Data-Driven Leader | Tech Integrator</p>
+    </div>
+    
+    <div class="contact-info">
+      <p><i class="fas fa-envelope"></i> <a href="mailto:vankelakasturi@gmail.com">vankelakasturi@gmail.com</a></p>
+      <p><i class="fas fa-phone"></i> <a href="tel:+918897005266">+91 88970 05266</a></p>
+      <p><i class="fas fa-map-marker-alt"></i> Hyderabad, India</p>
+      
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/kasturi-vankela-1aa353153/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/r151127" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
   </div>
+  
   <div>
-    <p>Email: <a href="mailto:vankelakasturi@gmail.com">vankelakasturi@gmail.com</a></p>
-    <p>Phone: <a href="tel:+918897005266">+91 88970 05266</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/kasturi-vankela-1aa353153/" target="_blank">kasturi-vankela</a></p>
+    <p><i class="fas fa-download"></i> <a href="https://docs.google.com/document/d/1TF2spvk5cQ84gd3-6bfaw0__GXOgLOfItgebLew3fns/edit?tab=t.0" target="_blank">Download Resume</a></p>
   </div>
 </aside>
 
 <main>
   <section id="about">
-    <h2>About Me</h2>
+    <h2><span class="highlight-text">About</span> Me</h2>
     <p>
-      I'm a results-oriented Project Manager with expertise in Agile project delivery, CRM automation, and cross-functional team leadership. 
-      I focus on optimizing processes, driving growth through tech integration, and aligning execution with business goals.
+      I'm a <strong>results-oriented Project Manager</strong> with expertise in Agile project delivery, CRM automation, and cross-functional team leadership. My approach combines <strong>strategic vision</strong> with <strong>technical execution</strong> to drive business growth through innovative solutions.
     </p>
+    <p>
+      With a passion for optimizing processes and aligning execution with business goals, I specialize in <strong>translating complex requirements</strong> into actionable plans that deliver measurable results.
+    </p>
+    
+    <div class="skills">
+      <span class="skill">Agile Methodologies</span>
+      <span class="skill">CRM Automation</span>
+      <span class="skill">Data Analytics</span>
+      <span class="skill">Process Optimization</span>
+      <span class="skill">Team Leadership</span>
+      <span class="skill">Vendor Management</span>
+      <span class="skill">AI Integration</span>
+      <span class="skill">Strategic Planning</span>
+    </div>
   </section>
 
   <section id="experience">
-    <h2>Experience</h2>
-    <ul>
-      <li><strong>Project Manager, NxtWave</strong> – Feb 2024–Present</li>
-      <li><strong>Associate Project Manager, NxtWave</strong> – May 2022–Jan 2024</li>
-      <li><strong>Associate Project Manager, PinScale</strong> – Sep 2021–Apr 2022</li>
-      <li><strong>Management Intern, iB Hubs</strong> – 2019–2021</li>
-    </ul>
+    <h2>Professional <span class="highlight-text">Journey</span></h2>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Feb 2024 – Present</div>
+        <div class="timeline-content">
+          <h3>Project Manager @ NxtWave</h3>
+          <p>Leading strategic initiatives and cross-functional teams to deliver innovative educational technology solutions.</p>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">May 2022 – Jan 2024</div>
+        <div class="timeline-content">
+          <h3>Associate Project Manager @ NxtWave</h3>
+          <p>Implemented Agile methodologies and streamlined project delivery processes.</p>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">Sep 2021 – Apr 2022</div>
+        <div class="timeline-content">
+          <h3>Associate Project Manager @ PinScale</h3>
+          <p>Managed key client projects and developed operational efficiencies.</p>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">2019 – 2021</div>
+        <div class="timeline-content">
+          <h3>Management Intern @ iB Hubs</h3>
+          <p>Gained foundational experience in project coordination and team management.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="projects">
-    <h2>Projects</h2>
-
-    <div class="project">
-      <h4><a href="projects/call-recording-crm.html" target="_blank">Seamless CRM-Integrated Call Recording</a></h4>
-      <p>
-        A real-time tool for capturing inbound and outbound presales calls and syncing them to Salesforce and Floww.ai, enhancing auditability, insight readiness, and process traceability.
-      </p>
+    <h2>Key <span class="highlight-text">Projects</span></h2>
+    
+    <div class="projects-grid">
+      <div class="project">
+        <span class="impact-badge">High Impact</span>
+        <h4><a href="https://r151127.github.io/kasturi-portfolio/projects/call-recording-crm.html" target="_blank">Seamless CRM-Integrated Call Recording <i class="fas fa-external-link-alt"></i></a></h4>
+        <p>
+          A real-time tool for capturing inbound and outbound presales calls and syncing them to Salesforce and Floww.ai.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">100%</div>
+            <div class="metric-label">Auditability</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">Real-time</div>
+            <div class="metric-label">Sync</div>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">CRM</span>
+          <span class="project-tag">Automation</span>
+          <span class="project-tag">Salesforce</span>
+          <span class="project-tag">Floww.ai</span>
+        </div>
+      </div>
+      
+      <div class="project">
+        <span class="impact-badge">Data Driven</span>
+        <h4><a href="https://r151127.github.io/kasturi-portfolio/projects/analytics-performance-suite.html" target="_blank">Analytics & Performance Suite <i class="fas fa-external-link-alt"></i></a></h4>
+        <p>Implemented comprehensive dashboards for performance tracking across multiple products.</p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">25+</div>
+            <div class="metric-label">Dashboards</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">Multi-product</div>
+            <div class="metric-label">Insights</div>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Data Analytics</span>
+          <span class="project-tag">Dashboards</span>
+          <span class="project-tag">BI</span>
+          <span class="project-tag">KPI Tracking</span>
+        </div>
+      </div>
+      
+      <div class="project">
+        <span class="impact-badge">Transformation</span>
+        <h4><a href="https://r151127.github.io/kasturi-portfolio/projects/crm-ecosystem-transformation.html" target="_blank">CRM Ecosystem Transformation <i class="fas fa-external-link-alt"></i></a></h4>
+        <p>
+          Migrated and unified CRM across multiple platforms with automated lead management.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">81%</div>
+            <div class="metric-label">Accuracy ↑</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">₹30K/mo</div>
+            <div class="metric-label">Saved</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">0</div>
+            <div class="metric-label">Lead Leakage</div>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">CRM Migration</span>
+          <span class="project-tag">Automation</span>
+          <span class="project-tag">Cost Savings</span>
+          <span class="project-tag">Lead Management</span>
+        </div>
+      </div>
+      
+      <div class="project">
+        <span class="impact-badge">AI Powered</span>
+        <h4><a href="https://r151127.github.io/kasturi-portfolio/projects/ai-engagement-optimization.html" target="_blank">AI-Powered Engagement Optimization <i class="fas fa-external-link-alt"></i></a></h4>
+        <p>
+          Deployed AI-driven call auditing and multilingual communication workflows.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">75%</div>
+            <div class="metric-label">Audit Time ↓</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">₹6,573+</div>
+            <div class="metric-label">Per BDM Saved</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">90%+</div>
+            <div class="metric-label">Engagement Rate</div>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">AI</span>
+          <span class="project-tag">Automation</span>
+          <span class="project-tag">Efficiency</span>
+          <span class="project-tag">Multilingual</span>
+        </div>
+      </div>
+      
+      <div class="project">
+        <span class="impact-badge">Scalable</span>
+        <h4><a href="https://r151127.github.io/kasturi-portfolio/projects/webinar-platform-project-final.html" target="_blank">Scalable Webinar Platform <i class="fas fa-external-link-alt"></i></a></h4>
+        <p>
+          Enterprise-wide webinar platform with automated registration and CRM tracking.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">Multi-language</div>
+            <div class="metric-label">Support</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">Real-time</div>
+            <div class="metric-label">Tracking</div>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Webinar</span>
+          <span class="project-tag">Scalability</span>
+          <span class="project-tag">CRM Integration</span>
+          <span class="project-tag">Automation</span>
+        </div>
+      </div>
+      
+      <div class="project">
+        <span class="impact-badge">Operational</span>
+        <h4><a href="https://r151127.github.io/kasturi-portfolio/projects/organizational-transformation-project.html" target="_blank">Organizational Transformation <i class="fas fa-external-link-alt"></i></a></h4>
+        <p>
+          Restructured department-wide operations with standardized processes.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">100%</div>
+            <div class="metric-label">Continuity</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">SOPs</div>
+            <div class="metric-label">Implemented</div>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Transformation</span>
+          <span class="project-tag">SOPs</span>
+          <span class="project-tag">Zoho</span>
+          <span class="project-tag">Process Improvement</span>
+        </div>
+      </div>
+      
+      <div class="project">
+        <span class="impact-badge">Cost Savings</span>
+        <h4><a href="https://r151127.github.io/kasturi-portfolio/projects/vendor-cost-optimization-project.html" target="_blank">Cost Optimization Initiative <i class="fas fa-external-link-alt"></i></a></h4>
+        <p>
+          Strategic vendor program that significantly reduced operational costs.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">60%+</div>
+            <div class="metric-label">Cost Reduction</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">Cloud</div>
+            <div class="metric-label">Solutions</div>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Vendor Management</span>
+          <span class="project-tag">Cost Reduction</span>
+          <span class="project-tag">Cloud</span>
+          <span class="project-tag">Procurement</span>
+        </div>
+      </div>
     </div>
-    <div class="project">
-  <h4>
-    <a href="projects/analytics-performance-suite.html" target="_blank">
-      Comprehensive Analytics & Performance Intelligence Platform
-    </a>
-  </h4>
-  <p>Implemented 25+ dashboards for performance, incentives, lead scoring, and operations intelligence across Academy, NIAT, and Intensive products.</p>
-   </div>
-<div class="project">
-  <h4>
-    <a href="projects/crm-ecosystem-transformation.html" target="_blank">
-      Integrated CRM Ecosystem Transformation & Automation Hub
-    </a>
-  </h4>
-  <p>
-    Migrated and unified CRM across multiple platforms, implemented automated lead management, and achieved zero lead leakage with 81%+ data accuracy improvement and ₹30K monthly cost savings.
-  </p>
-</div>
-<div class="project">
-  <h4>
-    <a href="projects/ai-engagement-optimization.html" target="_blank">
-      AI-Powered Communication & Engagement Optimization
-    </a>
-  </h4>
-  <p>
-    Deployed AI-driven call auditing, Zoom automation, and WhatsApp workflows across multilingual regions, reducing audit time by 75% and saving ₹6,573+ per BDM monthly. Enabled scalable webinar systems and 90%+ engagement delivery rates.
-  </p>
-</div>
-<div class="project">
-  <h4>
-    <a href="projects/webinar-platform-project-final.html" target="_blank">
-      Scalable Multi-Product Webinar & Live Session Platform
-    </a>
-  </h4>
-  <p>
-    Designed and deployed an enterprise-wide webinar platform with automated multi-language registration, real-time CRM attendance tracking, and scalable engagement workflows across Academy, NIAT, and Intensive products.
-  </p>
-</div>
-<div class="project">
-  <h4>
-    <a href="projects/organizational-transformation-project.html" target="_blank">
-      Strategic Organizational Transformation & SOP Standardization
-    </a>
-  </h4>
-  <p>
-    Restructured department-wide operations with 100% continuity, embedded SOPs, SLA frameworks, and KPI systems using Zoho Creator, enabling scalable performance tracking and cross-functional efficiency.
-  </p>
-</div>
-<div class="project">
-  <h4>
-    <a href="projects/vendor-cost-optimization-project.html" target="_blank">
-      Cost Optimization & Vendor Management Initiative
-    </a>
-  </h4>
-  <p>
-    Led a strategic vendor program that reduced costs by 60%+, implemented scalable cloud solutions, and built frameworks for procurement, platform evaluation, and long-term vendor relationships.
-  </p>
-</div>
-
   </section>
 
   <section id="certifications">
-    <h2>Certifications & Achievements</h2>
-    <ul>
-      <li><a href="https://www.coursera.org/account/accomplishments/verify/83GOP1YK48YW" target="_blank">Google Agile Project Management – Dec 2024</a></li>
-      <li><a href="https://www.coursera.org/account/accomplishments/verify/8LUG0SAKL9TJ" target="_blank">Google Project Execution – Nov 2024</a></li>
-      <li>Selected for Asia’s largest LoRaWAN conference</li>
-      <li>Prathibha Award winner for academic excellence</li>
-    </ul>
+    <h2>Certifications & <span class="highlight-text">Achievements</span></h2>
+    
+    <div class="certifications-list">
+      <div class="certification">
+        <a href="https://www.coursera.org/account/accomplishments/verify/83GOP1YK48YW" target="_blank">
+          <i class="fas fa-certificate"></i>
+          <span>Google Agile Project Management – Dec 2024</span>
+        </a>
+      </div>
+      
+      <div class="certification">
+        <a href="https://www.coursera.org/account/accomplishments/verify/8LUG0SAKL9TJ" target="_blank">
+          <i class="fas fa-certificate"></i>
+          <span>Google Project Execution – Nov 2024</span>
+        </a>
+      </div>
+      
+      <div class="certification">
+        <a href="#" target="_blank">
+          <i class="fas fa-trophy"></i>
+          <span>Selected for Asia's largest LoRaWAN conference</span>
+        </a>
+      </div>
+      
+      <div class="certification">
+        <a href="#" target="_blank">
+          <i class="fas fa-award"></i>
+          <span>Prathibha Award winner for academic excellence</span>
+        </a>
+      </div>
+    </div>
   </section>
 
   <footer>
-    &copy; 2025 Kasturi Vankela
+    <p>&copy; 2025 Kasturi Vankela | Crafted with <i class="fas fa-heart" style="color: #ff6b6b;"></i> and <i class="fas fa-code" style="color: var(--accent);"></i></p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Last updated: June 2024</p>
   </footer>
 </main>
 
