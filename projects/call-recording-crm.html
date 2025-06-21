@@ -1,126 +1,354 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seamless CRM-Integrated Call Recording</title>
-  <link rel="stylesheet" href="../styles.css">
+  <title>Seamless CRM-Integrated Call Recording | Kasturi Vankela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --bg: #0a192f;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #64ffda;
+      --highlight: #112240;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 2rem;
     }
-    h1, h2 {
-      color: #38bdf8;
+
+    /* Project Header */
+    .project-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      margin-bottom: 3rem;
     }
-    .highlight {
-      background: #1e293b;
-      padding: 1rem;
-      border-left: 4px solid #38bdf8;
-      border-radius: 4px;
+
+    .project-header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
       margin-bottom: 2rem;
+      max-width: 800px;
     }
-    ul {
-      padding-left: 1.25rem;
-      margin-bottom: 2rem;
-    }
-    .metrics {
+
+    .project-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin: 2rem 0;
+      margin-bottom: 2rem;
     }
-    .metric {
-      flex: 1 1 250px;
-      background-color: #1f2937;
-      padding: 1rem;
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-item i {
+      color: var(--accent);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Project Sections */
+    .project-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .highlight-box {
+      background: rgba(100, 255, 218, 0.05);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+
+    /* Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .metric-card {
+      background: var(--highlight);
+      padding: 1.5rem;
       border-radius: 8px;
       text-align: center;
-      color: #facc15;
-      box-shadow: 0 2px 6px rgba(255,255,255,0.05);
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.1);
     }
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Chart */
     .chart-container {
-      max-width: 700px;
-      margin: 2rem auto;
+      background: var(--highlight);
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 3rem 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    /* Lists */
+    .styled-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .styled-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .styled-list li::before {
+      content: '→';
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+
+    /* Back Button */
     .back-button {
-      display: block;
-      margin: 3rem auto;
-      text-align: center;
-      background: #38bdf8;
-      color: #0f0f0f;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
       text-decoration: none;
-      width: fit-content;
+      margin: 3rem 0;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.3);
+    }
+
+    .back-button:hover {
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateX(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 2rem;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Seamless CRM-Integrated Call Recording Solution for Presales Teams</h1>
-  <p class="highlight">Implementation of Real-Time Call Recording and CRM Integration Tool</p>
+  <div class="container">
+    <header class="project-header">
+      <div class="project-meta">
+        <span class="meta-item"><i class="fas fa-calendar-alt"></i> Jan 2023 - Present</span>
+        <span class="meta-item"><i class="fas fa-user-tie"></i> Project Manager</span>
+        <span class="meta-item"><i class="fas fa-building"></i> NxtWave</span>
+      </div>
+      
+      <h1>Seamless CRM-Integrated Call Recording Solution</h1>
+      <p class="project-subtitle">Implementation of Real-Time Call Recording and CRM Integration Tool for Presales Teams</p>
+      
+      <div class="project-tags">
+        <span class="project-tag">Salesforce</span>
+        <span class="project-tag">Floww.ai</span>
+        <span class="project-tag">Call Recording</span>
+        <span class="project-tag">Automation</span>
+        <span class="project-tag">AI Integration</span>
+      </div>
+    </header>
 
-  <section>
-    <h2>Project Objectives</h2>
-    <p>
-      To deploy a solution that records both inbound and outbound calls, stores them in the cloud with downloadable public URLs, and syncs recordings and metadata in real-time to Salesforce and Floww.ai. This is aimed at eliminating manual effort, enhancing data visibility, and supporting AI-based performance auditing.
-    </p>
-  </section>
+    <section class="project-section">
+      <h2 class="section-title">Project Impact</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">95.8%</div>
+          <div class="metric-label">Calls Synced to CRM</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Manual Logging Eliminated</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">2.5 hrs</div>
+          <div class="metric-label">Audit Time Saved Weekly</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">60%</div>
+          <div class="metric-label">Annual Cost Savings</div>
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Outcome</h2>
-    <p>
-      A streamlined system was implemented that automatically captures and links call data to CRM interactions. The solution supports real-time access for managers and AI tools, aligning with operational and quality control requirements.
-    </p>
-  </section>
+    <section class="project-section">
+      <h2 class="section-title">Project Overview</h2>
+      <div class="highlight-box">
+        <p>Deployed a solution that records both inbound and outbound calls, stores them in the cloud with downloadable public URLs, and syncs recordings and metadata in real-time to Salesforce and Floww.ai.</p>
+      </div>
+      
+      <h3>Key Objectives</h3>
+      <ul class="styled-list">
+        <li>Eliminate manual call logging effort</li>
+        <li>Enhance data visibility for managers</li>
+        <li>Support AI-based performance auditing</li>
+        <li>Ensure real-time access to call data</li>
+        <li>Maintain compliance with quality standards</li>
+      </ul>
+    </section>
 
-  <h2>Key Metrics</h2>
-  <div class="metrics"><div class="metric"><strong>95.8%</strong><br>Synced to CRM</div>
-    <div class="metric"><strong>100%</strong><br>Manual Logging Eliminated</div>
-    <div class="metric"><strong>2.5 hrs/week</strong><br>Audit Time Saved</div>
-    <div class="metric"><strong>60%</strong><br>Annual Cost Savings</div>
+    <section class="project-section">
+      <h2 class="section-title">Results Achieved</h2>
+      <div class="chart-container">
+        <canvas id="callChart"></canvas>
+      </div>
+      
+      <ul class="styled-list">
+        <li>Streamlined system automatically captures and links call data to CRM interactions</li>
+        <li>Real-time access for managers and AI tools</li>
+        <li>Full compliance with call auditing requirements</li>
+        <li>AI-analysis ready infrastructure</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">My Contributions</h2>
+      <div class="highlight-box">
+        <p>As Project Manager, I led the end-to-end implementation of this solution, from vendor selection to successful deployment.</p>
+      </div>
+      
+      <h3>Key Responsibilities</h3>
+      <ul class="styled-list">
+        <li>Facilitated requirement elicitation with product owners and stakeholders</li>
+        <li>Finalized vendor after technical and functional analysis</li>
+        <li>Managed vendor demos and validated against real use cases</li>
+        <li>Negotiated pricing terms achieving 60% annual cost reduction</li>
+        <li>Led POC efforts and resolved critical issues like URL accessibility</li>
+        <li>Coordinated cross-functional teams (Salesforce, Floww.ai, vendors)</li>
+        <li>Managed procurement approvals and vendor onboarding</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Technical Implementation</h2>
+      <div class="project-tags" style="margin-bottom: 2rem;">
+        <span class="project-tag"><i class="fab fa-salesforce"></i> Salesforce</span>
+        <span class="project-tag"><i class="fas fa-robot"></i> Floww.ai</span>
+        <span class="project-tag"><i class="fas fa-cloud"></i> Cloud Storage</span>
+        <span class="project-tag"><i class="fas fa-plug"></i> API Integration</span>
+      </div>
+      
+      <h3>Solution Architecture</h3>
+      <ul class="styled-list">
+        <li>Real-time call recording capture for inbound/outbound calls</li>
+        <li>Secure cloud storage with downloadable URLs</li>
+        <li>Automated metadata extraction and syncing</li>
+        <li>Bi-directional integration with Salesforce and Floww.ai</li>
+        <li>Compliance-focused data handling</li>
+      </ul>
+    </section>
+
+    <a href="https://r151127.github.io/kasturi-portfolio/" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
   </div>
-
-  <div class="chart-container">
-    <canvas id="callChart"></canvas>
-  </div>
-
-  <section>
-    <h2>My Role</h2>
-    <p class="highlight">Project Manager</p>
-  </section>
-
-  <section>
-    <h2>Responsibilities</h2>
-    <ul>
-      <li>Facilitated requirement elicitation with product owners and stakeholders.</li>
-      <li>Finalized the vendor after analyzing all defined technical and functional requirements.</li>
-      <li>Managed vendor demos and validated solutions against real use cases.</li>
-      <li>Negotiated pricing terms successfully, reducing monthly and annual costs significantly.</li>
-      <li>Led POC efforts, identified key issues (e.g., publicly accessible call recording URLs), and resolved them through internal-external collaboration.</li>
-      <li>Oversaw cross-functional coordination between CRM teams (Salesforce, Floww.ai), internal tech teams, and vendor teams.</li>
-      <li>Managed procurement approvals, vendor onboarding, and ensured a successful roll-out aligned with stakeholder expectations.</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Deliverables</h2>
-    <ul>
-      <li>Implemented CRM-integrated call recording system.</li>
-      <li>Real-time syncing of call logs and downloadable recordings.</li>
-      <li>Cost-effective deployment with a 60% annual discount.</li>
-      <li>Full compliance with call auditing and AI-analysis readiness.</li>
-    </ul>
-  </section>
-
-  <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
 
   <script>
+    // Call Data Chart
     const ctx = document.getElementById('callChart').getContext('2d');
     new Chart(ctx, {
       type: 'bar',
@@ -130,40 +358,64 @@
           {
             label: 'Total Logged',
             data: [1420, 1980],
-            backgroundColor: '#38bdf8'
+            backgroundColor: 'rgba(100, 255, 218, 0.7)',
+            borderColor: 'rgba(100, 255, 218, 1)',
+            borderWidth: 1
           },
           {
             label: 'Synced to CRM',
             data: [1360, 1896],
-            backgroundColor: '#facc15'
+            backgroundColor: 'rgba(148, 163, 184, 0.7)',
+            borderColor: 'rgba(148, 163, 184, 1)',
+            borderWidth: 1
           }
         ]
       },
       options: {
         responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Call Volume and CRM Sync Performance',
+            color: '#64ffda',
+            font: {
+              family: "'Space Grotesk', sans-serif",
+              size: 16,
+              weight: '600'
+            }
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
             ticks: {
-              color: '#f5f5f5'
+              color: '#94a3b8',
+              font: {
+                family: "'Space Mono', monospace"
+              }
             },
             grid: {
-              color: '#334155'
+              color: 'rgba(148, 163, 184, 0.1)'
             }
           },
           x: {
             ticks: {
-              color: '#f5f5f5'
+              color: '#94a3b8',
+              font: {
+                family: "'Space Mono', monospace"
+              }
             },
             grid: {
-              color: '#334155'
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: '#f5f5f5'
+              color: 'rgba(148, 163, 184, 0.1)'
             }
           }
         }
