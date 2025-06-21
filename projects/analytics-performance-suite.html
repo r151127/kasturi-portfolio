@@ -1,168 +1,485 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analytics & Performance Intelligence Platform</title>
-  <link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics & Performance Intelligence Platform | Kasturi Vankela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --bg: #0a192f;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #64ffda;
+      --highlight: #112240;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 2rem;
     }
-    h1, h2 {
-      color: #38bdf8;
+
+    /* Project Header */
+    .project-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      margin-bottom: 3rem;
     }
-    .highlight {
-      background: #1e293b;
-      padding: 1rem;
-      border-left: 4px solid #38bdf8;
-      border-radius: 4px;
+
+    .project-header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
       margin-bottom: 2rem;
+      max-width: 800px;
     }
-    ul {
-      padding-left: 1.25rem;
-      margin-bottom: 2rem;
-    }
-    .metrics {
+
+    .project-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin: 2rem 0;
+      margin-bottom: 2rem;
     }
-    .metric {
-      flex: 1 1 250px;
-      background-color: #1f2937;
-      padding: 1rem;
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-item i {
+      color: var(--accent);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Project Sections */
+    .project-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .highlight-box {
+      background: rgba(100, 255, 218, 0.05);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+
+    /* Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .metric-card {
+      background: var(--highlight);
+      padding: 1.5rem;
       border-radius: 8px;
       text-align: center;
-      color: #facc15;
-      box-shadow: 0 2px 6px rgba(255,255,255,0.05);
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.1);
     }
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Chart */
     .chart-container {
-      max-width: 700px;
-      margin: 2rem auto;
+      background: var(--highlight);
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 3rem 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    /* Dashboard Showcase */
+    .dashboard-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .dashboard-card {
+      background: var(--highlight);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .dashboard-card h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dashboard-card h3 i {
+      font-size: 1.2rem;
+    }
+
+    /* Lists */
+    .styled-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .styled-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .styled-list li::before {
+      content: '→';
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+
+    /* Back Button */
     .back-button {
-      display: block;
-      margin: 3rem auto;
-      text-align: center;
-      background: #38bdf8;
-      color: #0f0f0f;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
       text-decoration: none;
-      width: fit-content;
+      margin: 3rem 0;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.3);
+    }
+
+    .back-button:hover {
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateX(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 2rem;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Comprehensive Analytics & Performance Intelligence Platform</h1>
-  <p class="highlight">Implementation of Multi-Product Analytics Dashboard Suite with Real-Time Performance Tracking</p>
+  <div class="container">
+    <header class="project-header">
+      <div class="project-meta">
+        <span class="meta-item"><i class="fas fa-calendar-alt"></i> Jan 2023 - Present</span>
+        <span class="meta-item"><i class="fas fa-user-tie"></i> Analytics Project Manager</span>
+        <span class="meta-item"><i class="fas fa-building"></i> NxtWave</span>
+      </div>
+      
+      <h1>Comprehensive Analytics & Performance Intelligence Platform</h1>
+      <p class="project-subtitle">Implementation of Multi-Product Analytics Dashboard Suite with Real-Time Performance Tracking</p>
+      
+      <div class="project-tags">
+        <span class="project-tag"><i class="fas fa-chart-line"></i> Looker Studio</span>
+        <span class="project-tag"><i class="fas fa-robot"></i> Floww.ai</span>
+        <span class="project-tag"><i class="fas fa-database"></i> Data Analytics</span>
+        <span class="project-tag"><i class="fas fa-bolt"></i> Real-time</span>
+        <span class="project-tag"><i class="fas fa-cogs"></i> Automation</span>
+      </div>
+    </header>
 
-  <section>
-    <h2>Project Objectives</h2>
-    <p>
-      To develop and deploy a comprehensive analytics ecosystem spanning Academy, NIAT, and Intensive products,
-      providing real-time insights into lead flows, CBA performance, incentive calculations, and operational efficiency.
-      This initiative aimed to transform data-driven decision making across all business verticals while reducing
-      manual reporting efforts and improving strategic visibility.
-    </p>
-  </section>
+    <section class="project-section">
+      <h2 class="section-title">Project Impact</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">25+</div>
+          <div class="metric-label">Specialized Dashboards</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">81%+</div>
+          <div class="metric-label">Data Accuracy Improvement</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">14+ hrs</div>
+          <div class="metric-label">Monthly Time Saved</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">6 hrs</div>
+          <div class="metric-label">Weekly Ops Time Saved</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">3</div>
+          <div class="metric-label">Product Verticals</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Automated Incentives</div>
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Outcome</h2>
-    <p>
-      Successfully delivered 25+ specialized dashboards including CAC analysis, lead scoring, TAT tracking, incentives
-      automation, and performance monitoring systems. Achieved significant time savings (14+ hours monthly for incentive
-      calculations alone), improved data accuracy by 81%+, and enabled proactive management through real-time analytics
-      across all product lines.
-    </p>
-  </section>
+    <section class="project-section">
+      <h2 class="section-title">Project Overview</h2>
+      <div class="highlight-box">
+        <p>Developed and deployed a comprehensive analytics ecosystem spanning Academy, NIAT, and Intensive products, providing real-time insights into lead flows, CBA performance, incentive calculations, and operational efficiency.</p>
+      </div>
+      
+      <h3>Key Objectives</h3>
+      <ul class="styled-list">
+        <li>Transform data-driven decision making across business verticals</li>
+        <li>Reduce manual reporting efforts by 80%+</li>
+        <li>Improve strategic visibility through real-time analytics</li>
+        <li>Enable proactive management with actionable insights</li>
+        <li>Standardize KPIs and metrics across all product lines</li>
+      </ul>
+    </section>
 
-  <h2>Key Metrics</h2>
-  <div class="metrics">
-    <div class="metric"><strong>25+</strong><br>Dashboards Delivered</div>
-    <div class="metric"><strong>81%+</strong><br>Accuracy Improvement</div>
-    <div class="metric"><strong>14+ hrs/month</strong><br>Incentive Time Saved</div>
-    <div class="metric"><strong>6 hrs/week</strong><br>Ops Team Time Saved</div>
-    <div class="metric"><strong>3</strong><br>Product Verticals</div>
-    <div class="metric"><strong>100%</strong><br>Automated Incentives</div>
+    <section class="project-section">
+      <h2 class="section-title">Dashboard Ecosystem</h2>
+      <div class="dashboard-showcase">
+        <div class="dashboard-card">
+          <h3><i class="fas fa-money-bill-wave"></i> Incentives Automation</h3>
+          <p>Automated calculation system saving 14+ hours monthly with 100% accuracy improvement</p>
+        </div>
+        <div class="dashboard-card">
+          <h3><i class="fas fa-stopwatch"></i> TAT Analysis</h3>
+          <p>Real-time dashboards reducing process bottlenecks across channels and regions</p>
+        </div>
+        <div class="dashboard-card">
+          <h3><i class="fas fa-funnel-dollar"></i> CAC Analytics</h3>
+          <p>Marketing ROI visibility with conversion funnel analysis</p>
+        </div>
+        <div class="dashboard-card">
+          <h3><i class="fas fa-user-graduate"></i> Lead Scoring</h3>
+          <p>Advanced qualification tracking systems with predictive scoring</p>
+        </div>
+        <div class="dashboard-card">
+          <h3><i class="fas fa-users"></i> Attrition Analysis</h3>
+          <p>Employee retention dashboard supporting HR strategic decisions</p>
+        </div>
+        <div class="dashboard-card">
+          <h3><i class="fas fa-tachometer-alt"></i> Performance Monitoring</h3>
+          <p>Real-time tracking of BDAs, BDMs, and CBAs performance metrics</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Results Achieved</h2>
+      <div class="chart-container">
+        <canvas id="analyticsChart"></canvas>
+      </div>
+      
+      <ul class="styled-list">
+        <li>Enabled data-driven decision making across Academy, NIAT, and Intensive verticals</li>
+        <li>Reduced manual reporting time by 80% through automation</li>
+        <li>Improved incentive calculation accuracy from 65% to 100%</li>
+        <li>Identified and resolved 12+ process bottlenecks through TAT analysis</li>
+        <li>Optimized marketing spend by 22% through CAC visibility</li>
+        <li>Enhanced lead conversion by 18% with scoring system</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">My Contributions</h2>
+      <div class="highlight-box">
+        <p>As Analytics Project Manager & Strategic Implementation Lead, I orchestrated the development of this comprehensive analytics platform across multiple product lines.</p>
+      </div>
+      
+      <h3>Key Responsibilities</h3>
+      <ul class="styled-list">
+        <li>Led cross-functional analytics requirements gathering across Academy, NIAT, and Intensive product teams</li>
+        <li>Designed and implemented dashboard architecture using Looker Studio, Floww.ai, and custom database solutions</li>
+        <li>Managed vendor relationships and tool integrations for analytics platforms</li>
+        <li>Coordinated with CRM teams to ensure data consistency and accuracy across all reporting systems</li>
+        <li>Established KPIs and performance metrics framework for BDAs, BDMs, and CBAs</li>
+        <li>Oversaw the automation of incentive calculations, reducing manual effort and eliminating calculation errors</li>
+        <li>Implemented lead scoring models and conversion funnel analysis to optimize sales processes</li>
+        <li>Delivered training programs for business teams on dashboard usage and data interpretation</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Technical Implementation</h2>
+      <div class="project-tags" style="margin-bottom: 2rem;">
+        <span class="project-tag"><i class="fab fa-google"></i> Looker Studio</span>
+        <span class="project-tag"><i class="fas fa-robot"></i> Floww.ai</span>
+        <span class="project-tag"><i class="fas fa-database"></i> MySQL</span>
+        <span class="project-tag"><i class="fas fa-plug"></i> API Integrations</span>
+        <span class="project-tag"><i class="fas fa-cloud"></i> Cloud Infrastructure</span>
+      </div>
+      
+      <h3>Solution Architecture</h3>
+      <ul class="styled-list">
+        <li>Centralized data warehouse aggregating information from 3 product lines</li>
+        <li>Real-time data processing pipeline with 15-minute refresh cycles</li>
+        <li>Custom ETL processes ensuring data consistency across systems</li>
+        <li>Role-based access control for different stakeholder groups</li>
+        <li>Automated alerting system for KPI thresholds and anomalies</li>
+        <li>Mobile-responsive dashboard design for field teams</li>
+      </ul>
+    </section>
+
+    <a href="https://r151127.github.io/kasturi-portfolio/" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
   </div>
-
-  <div class="chart-container">
-    <canvas id="analyticsChart"></canvas>
-  </div>
-
-  <section>
-    <h2>My Role</h2>
-    <p class="highlight">Analytics Program Manager & Strategic Implementation Lead</p>
-  </section>
-
-  <section>
-    <h2>Responsibilities</h2>
-    <ul>
-      <li>Led cross-functional analytics requirements gathering across Academy, NIAT, and Intensive.</li>
-      <li>Designed dashboard architecture using Looker Studio, Floww.ai, and databases.</li>
-      <li>Managed vendor relationships and analytics tool integrations.</li>
-      <li>Ensured data accuracy and consistency across CRM-connected dashboards.</li>
-      <li>Established KPI frameworks and implemented incentive automation.</li>
-      <li>Built lead scoring and conversion funnel systems.</li>
-      <li>Delivered training on dashboard usage and data interpretation.</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Deliverables</h2>
-    <ul>
-      <li>25+ operational dashboards for performance and financial insights.</li>
-      <li>Automated incentive calculation engine saving 14+ hrs monthly.</li>
-      <li>Real-time TAT analysis dashboards reducing bottlenecks.</li>
-      <li>CAC and funnel analytics improving marketing ROI visibility.</li>
-      <li>Employee attrition dashboard enabling HR insights.</li>
-      <li>Lead scoring and qualification tracking system.</li>
-    </ul>
-  </section>
-
-  <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
 
   <script>
+    // Analytics Impact Chart
     const ctx = document.getElementById('analyticsChart').getContext('2d');
     new Chart(ctx, {
       type: 'radar',
       data: {
-        labels: ['Incentives', 'TAT Tracking', 'Lead Scoring', 'Attrition', 'CAC', 'Ops Intelligence'],
+        labels: ['Incentives Automation', 'TAT Tracking', 'Lead Scoring', 'Attrition Analysis', 'CAC Visibility', 'Ops Intelligence'],
         datasets: [{
           label: 'Analytics Impact Score',
           data: [95, 85, 90, 75, 88, 92],
-          backgroundColor: 'rgba(56, 189, 248, 0.2)',
-          borderColor: '#38bdf8',
-          pointBackgroundColor: '#38bdf8'
+          backgroundColor: 'rgba(100, 255, 218, 0.2)',
+          borderColor: 'rgba(100, 255, 218, 1)',
+          pointBackgroundColor: 'rgba(100, 255, 218, 1)',
+          pointBorderColor: '#fff',
+          pointHoverRadius: 6,
+          pointHoverBorderWidth: 2
         }]
       },
       options: {
-        scales: {
-          r: {
-            angleLines: { color: '#334155' },
-            grid: { color: '#334155' },
-            pointLabels: { color: '#f5f5f5' },
-            ticks: {
-              color: '#f5f5f5',
-              backdropColor: 'transparent',
-              beginAtZero: true,
-              max: 100
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Analytics Impact Across Key Areas',
+            color: '#64ffda',
+            font: {
+              family: "'Space Grotesk', sans-serif",
+              size: 16,
+              weight: '600'
             }
           }
         },
-        plugins: {
-          legend: {
-            labels: {
-              color: '#f5f5f5'
+        scales: {
+          r: {
+            angleLines: {
+              color: 'rgba(148, 163, 184, 0.2)'
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.2)'
+            },
+            pointLabels: {
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
+            },
+            ticks: {
+              color: '#94a3b8',
+              backdropColor: 'transparent',
+              font: {
+                family: "'Space Mono', monospace"
+              },
+              beginAtZero: true,
+              max: 100
             }
           }
         }
