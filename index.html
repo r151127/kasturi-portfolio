@@ -125,6 +125,27 @@
       transform: translateY(-3px);
     }
 
+    /* Navigation Links */
+    .nav-links {
+      margin: 2rem 0;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 0.5rem 0;
+      color: var(--muted);
+      text-decoration: none;
+      transition: var(--transition);
+      border-left: 2px solid transparent;
+      padding-left: 10px;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      border-left: 2px solid var(--accent);
+      padding-left: 15px;
+    }
+
     /* Main Content */
     main {
       margin-left: 300px;
@@ -136,6 +157,7 @@
     section {
       margin-bottom: 4rem;
       max-width: 800px;
+      scroll-margin-top: 20px;
     }
 
     h2 {
@@ -466,6 +488,13 @@
       <p>Agile Strategist | Data-Driven Leader | Tech Integrator</p>
     </div>
     
+    <div class="nav-links">
+      <a href="#about"><i class="fas fa-user"></i> About</a>
+      <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
+      <a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a>
+      <a href="#certifications"><i class="fas fa-certificate"></i> Certifications</a>
+    </div>
+    
     <div class="contact-info">
       <p><i class="fas fa-envelope"></i> <a href="mailto:vankelakasturi@gmail.com">vankelakasturi@gmail.com</a></p>
       <p><i class="fas fa-phone"></i> <a href="tel:+918897005266">+91 88970 05266</a></p>
@@ -763,6 +792,43 @@
     <p style="margin-top: 0.5rem; font-size: 0.8rem;">Last updated: June 2024</p>
   </footer>
 </main>
+
+<script>
+  // Smooth scrolling for navigation links
+  document.querySelectorAll('aside a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // Highlight active section in navigation
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      
+      if (pageYOffset >= (sectionTop - 300)) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
