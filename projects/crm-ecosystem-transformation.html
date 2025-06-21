@@ -1,155 +1,458 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Integrated CRM Ecosystem Transformation</title>
-  <link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Ecosystem Transformation | Kasturi Vankela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --bg: #0a192f;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #64ffda;
+      --highlight: #112240;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 2rem;
     }
-    h1, h2, h3 {
-      color: #38bdf8;
+
+    /* Project Header */
+    .project-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      margin-bottom: 3rem;
     }
-    a {
-      color: #93c5fd;
+
+    .project-header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1.2;
     }
-    .highlight {
-      background: #1e293b;
-      border-left: 4px solid #38bdf8;
-      padding: 0.75rem 1rem;
-      margin-bottom: 1em;
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-item i {
+      color: var(--accent);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Project Sections */
+    .project-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .highlight-box {
+      background: rgba(100, 255, 218, 0.05);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
       border-radius: 4px;
+      margin-bottom: 2rem;
     }
-    .metrics {
+
+    /* Metrics */
+    .metrics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
+      gap: 1.5rem;
+      margin: 3rem 0;
     }
-    .metric {
-      background: #1f2937;
-      padding: 1rem;
+
+    .metric-card {
+      background: var(--highlight);
+      padding: 1.5rem;
       border-radius: 8px;
       text-align: center;
-      color: #facc15;
-      box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.1);
     }
-    .chart-container {
-      margin: 2rem auto;
-      max-width: 600px;
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
-    ul li {
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
       margin-bottom: 0.5rem;
+      font-family: 'Space Mono', monospace;
     }
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Chart */
+    .chart-container {
+      background: var(--highlight);
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 3rem 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Integration Showcase */
+    .integration-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .integration-card {
+      background: var(--highlight);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .integration-card h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .integration-card h3 i {
+      font-size: 1.2rem;
+    }
+
+    /* Lists */
+    .styled-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .styled-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .styled-list li::before {
+      content: '→';
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+
+    /* Back Button */
     .back-button {
-      display: block;
-      width: fit-content;
-      margin: 3rem auto 0;
-      background-color: #38bdf8;
-      color: #0f0f0f;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
       text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      text-align: center;
+      margin: 3rem 0;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.3);
     }
+
     .back-button:hover {
-      background-color: #60a5fa;
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateX(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 2rem;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <section class="project-header">
-      <h1 class="project-title">Integrated CRM Ecosystem Transformation & Automation Hub</h1>
+    <header class="project-header">
+      <div class="project-meta">
+        <span class="meta-item"><i class="fas fa-calendar-alt"></i> Jan 2023 - Present</span>
+        <span class="meta-item"><i class="fas fa-user-tie"></i> CRM Transformation Manager</span>
+        <span class="meta-item"><i class="fas fa-building"></i> NxtWave</span>
+      </div>
+      
+      <h1>Integrated CRM Ecosystem Transformation</h1>
       <p class="project-subtitle">End-to-End CRM Modernization with Multi-Platform Integration and Process Automation</p>
-    </section>
+      
+      <div class="project-tags">
+        <span class="project-tag"><i class="fas fa-random"></i> Salesform CRM</span>
+        <span class="project-tag"><i class="fab fa-whatsapp"></i> WhatsApp</span>
+        <span class="project-tag"><i class="fas fa-robot"></i> Automation</span>
+        <span class="project-tag"><i class="fas fa-database"></i> Data Migration</span>
+        <span class="project-tag"><i class="fas fa-plug"></i> Platform Integration</span>
+      </div>
+    </header>
 
     <section class="project-section">
-      <h2>Project Objectives</h2>
-      <p class="highlight">
-        To eliminate data silos, reduce manual work, and create a scalable CRM backbone with integrated platforms like WhatsApp, TTCE, and Academy forms. Key targets were zero lead leakage, improved conversions, and CRM unification.
-      </p>
-    </section>
-
-    <section class="project-section">
-      <h2>Outcome</h2>
-      <ul>
-        <li>Salesform CRM migration with 100% data integrity</li>
-        <li>81.24% improvement in data accuracy</li>
-        <li>Zero lead leakage since June 2024</li>
-        <li>Unified lead flow across all platforms</li>
-      </ul>
-    </section>
-
-    <section class="project-section">
-      <h2>Key Metrics</h2>
-      <div class="metrics">
-        <div class="metric"><strong>29K+</strong><br />Records Corrected</div>
-        <div class="metric"><strong>159,952</strong><br />Leads Updated</div>
-        <div class="metric"><strong>₹30,000</strong><br />Monthly Savings</div>
-        <div class="metric"><strong>81.24%</strong><br />Accuracy Gain</div>
-        <div class="metric"><strong>2+ Hrs</strong><br />Time Saved Weekly</div>
-        <div class="metric"><strong>46 QLs</strong><br />from AI Workshop</div>
+      <h2 class="section-title">Transformation Impact</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">81.24%</div>
+          <div class="metric-label">Data Accuracy Improvement</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">29K+</div>
+          <div class="metric-label">Records Corrected</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">₹30K</div>
+          <div class="metric-label">Monthly Savings</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">0</div>
+          <div class="metric-label">Lead Leakage</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">2+ hrs</div>
+          <div class="metric-label">Weekly Time Saved</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">46 QLs</div>
+          <div class="metric-label">From AI Workshop</div>
+        </div>
       </div>
     </section>
 
-    <section class="chart-container">
-      <canvas id="accuracyChart"></canvas>
-    </section>
-
     <section class="project-section">
-      <h2>My Role</h2>
-      <p class="highlight">CRM Transformation Program Manager</p>
-
-      <h2>Responsibilities</h2>
-      <ul>
-        <li>Planned and led CRM ecosystem overhaul across 3 business units</li>
-        <li>Managed Salesforce to Salesform migration</li>
-        <li>Built automated qualification systems</li>
-        <li>Integrated WhatsApp, webinar, and registration platforms</li>
-        <li>Implemented bot-led nurturing & CRM hygiene protocols</li>
+      <h2 class="section-title">Project Overview</h2>
+      <div class="highlight-box">
+        <p>Transformed the entire CRM infrastructure by implementing unified lead management, automated workflows, and seamless integrations across Academy, NIAT, and Intensive products to eliminate data silos and create a scalable foundation for business growth.</p>
+      </div>
+      
+      <h3>Key Objectives</h3>
+      <ul class="styled-list">
+        <li>Eliminate data silos across business units</li>
+        <li>Reduce manual interventions by 80%+</li>
+        <li>Establish zero lead leakage system</li>
+        <li>Improve conversion rates through automation</li>
+        <li>Create scalable CRM backbone for future growth</li>
       </ul>
     </section>
 
     <section class="project-section">
-      <h2>Deliverables</h2>
-      <ul>
-        <li>Salesform CRM deployment with custom lead routing</li>
-        <li>Automation-led ₹30K savings/month</li>
-        <li>Centralized dashboard and hygiene tracking</li>
-        <li>AI-based QL qualification system</li>
+      <h2 class="section-title">Platform Integrations</h2>
+      <div class="integration-showcase">
+        <div class="integration-card">
+          <h3><i class="fas fa-random"></i> CRM Migration</h3>
+          <p>Salesforce to Salesform migration with 100% data integrity and enhanced functionality</p>
+        </div>
+        <div class="integration-card">
+          <h3><i class="fab fa-whatsapp"></i> WhatsApp Integration</h3>
+          <p>Seamless lead capture and nurturing through WhatsApp Business API</p>
+        </div>
+        <div class="integration-card">
+          <h3><i class="fas fa-chalkboard-teacher"></i> TTCE Platform</h3>
+          <p>Automated lead flow from training and certification platform</p>
+        </div>
+        <div class="integration-card">
+          <h3><i class="fas fa-user-graduate"></i> Academy Forms</h3>
+          <p>Direct integration with student registration and inquiry forms</p>
+        </div>
+        <div class="integration-card">
+          <h3><i class="fas fa-robot"></i> Bot Nurturing</h3>
+          <p>Automated lead qualification and engagement workflows</p>
+        </div>
+        <div class="integration-card">
+          <h3><i class="fas fa-tachometer-alt"></i> Central Dashboard</h3>
+          <p>Unified view of all lead activities and conversion metrics</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Results Achieved</h2>
+      <div class="chart-container">
+        <canvas id="accuracyChart"></canvas>
+      </div>
+      
+      <ul class="styled-list">
+        <li>Zero lead leakage maintained since June 2024</li>
+        <li>81.24% improvement in data accuracy (corrected 29K+ records)</li>
+        <li>₹30,000 monthly savings through automation</li>
+        <li>2+ hours weekly time savings for BOA and Business Teams</li>
+        <li>159,952 unqualified stage leads updated for reliability</li>
+        <li>46 qualified leads generated from 308 AI workshop registrations</li>
       </ul>
     </section>
 
-    <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+    <section class="project-section">
+      <h2 class="section-title">My Contributions</h2>
+      <div class="highlight-box">
+        <p>As CRM Transformation Project Manager, I led the strategic planning and execution of this comprehensive CRM modernization initiative across multiple business units.</p>
+      </div>
+      
+      <h3>Key Responsibilities</h3>
+      <ul class="styled-list">
+        <li>Led strategic planning and execution of complete CRM ecosystem overhaul</li>
+        <li>Managed Salesforce integration and Salesform CRM migration projects</li>
+        <li>Designed and implemented automated lead assignment and qualification systems</li>
+        <li>Coordinated multi-channel integrations (WhatsApp, webinar platforms, registration forms)</li>
+        <li>Established data governance standards and hygiene protocols across all CRM systems</li>
+        <li>Managed vendor relationships for CRM tools and integration platforms</li>
+        <li>Implemented automated nurturing sequences and bot-driven engagement workflows</li>
+        <li>Led training initiatives for business teams on new CRM processes and tools</li>
+        <li>Established SLAs and monitoring frameworks to maintain operational excellence</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Technical Implementation</h2>
+      <div class="project-tags" style="margin-bottom: 2rem;">
+        <span class="project-tag"><i class="fas fa-random"></i> Salesform CRM</span>
+        <span class="project-tag"><i class="fab fa-salesforce"></i> Salesforce</span>
+        <span class="project-tag"><i class="fab fa-whatsapp"></i> WhatsApp API</span>
+        <span class="project-tag"><i class="fas fa-plug"></i> Custom Integrations</span>
+        <span class="project-tag"><i class="fas fa-robot"></i> Automation Bots</span>
+      </div>
+      
+      <h3>Solution Architecture</h3>
+      <ul class="styled-list">
+        <li>Centralized lead database with real-time sync across platforms</li>
+        <li>Automated lead scoring and routing algorithms</li>
+        <li>Bi-directional integration with WhatsApp Business API</li>
+        <li>Custom webhook-based integration with TTCE platform</li>
+        <li>Automated data validation and hygiene protocols</li>
+        <li>Role-based access control with audit logging</li>
+      </ul>
+    </section>
+
+    <a href="https://r151127.github.io/kasturi-portfolio/" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
   </div>
 
   <script>
+    // Data Accuracy Chart
     const ctx = document.getElementById('accuracyChart').getContext('2d');
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Before', 'After'],
+        labels: ['Before Transformation', 'After Transformation'],
         datasets: [{
-          label: 'Data Accuracy Improvement',
+          label: 'Data Accuracy (%)',
           data: [47, 81.24],
-          backgroundColor: ['#f87171', '#38bdf8']
+          backgroundColor: [
+            'rgba(148, 163, 184, 0.7)',
+            'rgba(100, 255, 218, 0.7)'
+          ],
+          borderColor: [
+            'rgba(148, 163, 184, 1)',
+            'rgba(100, 255, 218, 1)'
+          ],
+          borderWidth: 1
         }]
       },
       options: {
+        responsive: true,
         plugins: {
           legend: {
-            labels: {
-              color: '#f5f5f5'
+            display: false
+          },
+          title: {
+            display: true,
+            text: 'Data Accuracy Improvement',
+            color: '#64ffda',
+            font: {
+              family: "'Space Grotesk', sans-serif",
+              size: 16,
+              weight: '600'
             }
           }
         },
@@ -158,12 +461,24 @@
             beginAtZero: true,
             max: 100,
             ticks: {
-              color: '#f5f5f5'
+              color: '#94a3b8',
+              font: {
+                family: "'Space Mono', monospace"
+              }
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.1)'
             }
           },
           x: {
             ticks: {
-              color: '#f5f5f5'
+              color: '#94a3b8',
+              font: {
+                family: "'Space Mono', monospace"
+              }
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.1)'
             }
           }
         }
