@@ -1,153 +1,486 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scalable Multi-Product Webinar Platform</title>
-  <link rel="stylesheet" href="../styles.css">
+  <title>Scalable Multi-Product Webinar Platform | Kasturi Vankela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --bg: #0a192f;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #64ffda;
+      --highlight: #112240;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 2rem;
-      scroll-behavior: smooth;
     }
-    h1, h2, h3 {
-      color: #38bdf8;
+
+    /* Project Header */
+    .project-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      margin-bottom: 3rem;
     }
-    .highlight {
-      background: #1e293b;
-      padding: 1rem;
-      border-left: 4px solid #38bdf8;
+
+    .project-header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-item i {
+      color: var(--accent);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Project Sections */
+    .project-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .highlight-box {
+      background: rgba(100, 255, 218, 0.05);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
       border-radius: 4px;
       margin-bottom: 2rem;
     }
+
+    /* Metrics */
     .metrics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
     }
-    .metric {
-      background: #1f2937;
-      padding: 1rem;
+
+    .metric-card {
+      background: var(--highlight);
+      padding: 1.5rem;
       border-radius: 8px;
       text-align: center;
-      color: #facc15;
-      transition: transform 0.3s;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.1);
     }
-    .metric:hover {
-      transform: scale(1.05);
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
-    .back-button {
-      display: block;
-      margin: 3rem auto;
-      text-align: center;
-      background: #38bdf8;
-      color: #0f0f0f;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: bold;
-      text-decoration: none;
-      width: fit-content;
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-family: 'Space Mono', monospace;
     }
-    .project-section {
-      margin-bottom: 2rem;
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--muted);
     }
+
+    /* Chart */
     .chart-container {
-      max-width: 600px;
-      margin: 2rem auto;
+      background: var(--highlight);
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 3rem 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Feature Showcase */
+    .feature-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: var(--highlight);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .feature-card h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-card h3 i {
+      font-size: 1.2rem;
+    }
+
+    /* Lists */
+    .styled-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .styled-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .styled-list li::before {
+      content: '→';
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+
+    /* Back Button */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 3rem 0;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.3);
+    }
+
+    .back-button:hover {
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateX(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 2rem;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Scalable Multi-Product Webinar & Live Session Platform</h1>
-    <p class="highlight">
-      Enterprise-Wide Webinar Platform Implementation with Automated Registration and Engagement Systems
-    </p>
+    <header class="project-header">
+      <div class="project-meta">
+        <span class="meta-item"><i class="fas fa-calendar-alt"></i> 2022 - Present</span>
+        <span class="meta-item"><i class="fas fa-user-tie"></i> Platform Implementation PM</span>
+        <span class="meta-item"><i class="fas fa-building"></i> NxtWave</span>
+      </div>
+      
+      <h1>Scalable Multi-Product Webinar Platform</h1>
+      <p class="project-subtitle">Enterprise-wide webinar platform implementation with automated registration and engagement systems</p>
+      
+      <div class="project-tags">
+        <span class="project-tag"><i class="fas fa-video"></i> Zoom Integration</span>
+        <span class="project-tag"><i class="fas fa-robot"></i> Bot Automation</span>
+        <span class="project-tag"><i class="fas fa-language"></i> Multi-language</span>
+        <span class="fas fa-users-cog"></i> CRM Integration</span>
+        <span class="project-tag"><i class="fas fa-chart-line"></i> Analytics</span>
+      </div>
+    </header>
 
     <section class="project-section">
-      <h2>Objectives</h2>
-      <p>
-        Design and deploy a unified webinar platform across products and regions, standardizing registration, attendance tracking, and engagement workflows while ensuring scalability and user experience.
-      </p>
-    </section>
-
-    <section class="project-section">
-      <h2>Outcomes</h2>
+      <h2 class="section-title">Project Impact</h2>
       <div class="metrics-grid">
-        <div class="metric"><strong>300+</strong><br>Registrations per session</div>
-        <div class="metric"><strong>6+</strong><br>Languages supported</div>
-        <div class="metric"><strong>100%</strong><br>Automation of registration</div>
-        <div class="metric"><strong>0%</strong><br>Manual session handling</div>
-        <div class="metric"><strong>Pan-India</strong><br>Regional scalability</div>
+        <div class="metric-card">
+          <div class="metric-value">300+</div>
+          <div class="metric-label">Registrations per session</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">6+</div>
+          <div class="metric-label">Languages supported</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Automated registration</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">0%</div>
+          <div class="metric-label">Manual handling</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">Pan-India</div>
+          <div class="metric-label">Regional scalability</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">3</div>
+          <div class="metric-label">Product verticals</div>
+        </div>
       </div>
     </section>
 
-    <section class="chart-container">
-      <canvas id="radarChart"></canvas>
-    </section>
-
     <section class="project-section">
-      <h2>My Role</h2>
-      <p class="highlight">Platform Implementation Project Manager & Digital Infrastructure Lead</p>
-
-      <h2>Responsibilities</h2>
-      <ul>
-        <li>Led webinar platform strategy across Academy, NIAT, Intensive</li>
-        <li>Migrated platform from Google Meet to Zoom</li>
-        <li>Implemented bot-led multi-language registration workflows</li>
-        <li>Automated attendance tracking with CRM</li>
-        <li>Developed analytics and engagement dashboards</li>
+      <h2 class="section-title">Project Overview</h2>
+      <div class="highlight-box">
+        <p>Designed and deployed a unified webinar platform infrastructure supporting Academy, NIAT, and Intensive products across multiple languages and regions. The platform automated registration, attendance tracking, and engagement systems while scaling operations pan-India.</p>
+      </div>
+      
+      <h3>Key Objectives</h3>
+      <ul class="styled-list">
+        <li>Eliminate manual session management across all product lines</li>
+        <li>Standardize registration processes with multi-language support</li>
+        <li>Implement automated attendance tracking with CRM integration</li>
+        <li>Create scalable engagement workflows for thousands of participants</li>
+        <li>Maintain high-quality user experience during platform migration</li>
       </ul>
     </section>
 
     <section class="project-section">
-      <h2>Deliverables</h2>
-      <ul>
-        <li>Unified platform supporting multiple products and languages</li>
-        <li>Automated pre/post webinar qualification systems</li>
-        <li>CRM-integrated attendance tracking</li>
-        <li>Engagement tracking with real-time analytics</li>
-        <li>Standardized multi-regional deployment protocols</li>
+      <h2 class="section-title">Platform Features</h2>
+      <div class="feature-showcase">
+        <div class="feature-card">
+          <h3><i class="fas fa-robot"></i> Automated Registration</h3>
+          <p>Bot-led workflows eliminating OTP-related drop-offs and manual entry</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-language"></i> Multi-language Support</h3>
+          <p>6+ regional languages including Telugu, Tamil, Hindi, and more</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-sync-alt"></i> CRM Integration</h3>
+          <p>Seamless attendance tracking and participant data synchronization</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-chart-pie"></i> Engagement Analytics</h3>
+          <p>Real-time dashboards showing participation and interaction metrics</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-expand"></i> Regional Scalability</h3>
+          <p>Pan-India deployment from initial Telugu regions</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-cogs"></i> Standardized Workflows</h3>
+          <p>Unified processes across Academy, NIAT, and Intensive products</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Platform Capabilities</h2>
+      <div class="chart-container">
+        <canvas id="platformChart"></canvas>
+      </div>
+      
+      <ul class="styled-list">
+        <li>Migrated platform from Google Meet to Zoom for enhanced functionality</li>
+        <li>Implemented bot sequences in 6+ regional languages</li>
+        <li>Automated attendance tracking eliminating manual processes</li>
+        <li>Developed pre-webinar qualification questionnaires</li>
+        <li>Created participant categorization systems</li>
+        <li>Established real-time analytics dashboards</li>
       </ul>
     </section>
 
-    <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+    <section class="project-section">
+      <h2 class="section-title">My Contributions</h2>
+      <div class="highlight-box">
+        <p>As Platform Implementation Project Manager & Digital Infrastructure Lead, I orchestrated the development and deployment of this enterprise-wide webinar solution across multiple product lines and regions.</p>
+      </div>
+      
+      <h3>Key Responsibilities</h3>
+      <ul class="styled-list">
+        <li>Led strategic planning for enterprise-wide webinar platform architecture</li>
+        <li>Managed vendor selection and platform migration from Google Meet to Zoom</li>
+        <li>Designed and implemented automated registration workflows</li>
+        <li>Coordinated multi-language bot sequence development for 6+ languages</li>
+        <li>Established automated attendance tracking and CRM integration systems</li>
+        <li>Implemented pre-webinar qualification and participant categorization</li>
+        <li>Developed real-time analytics and engagement dashboards</li>
+        <li>Conducted internal training programs on platform capabilities</li>
+        <li>Established performance monitoring frameworks</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Technical Implementation</h2>
+      <div class="project-tags" style="margin-bottom: 2rem;">
+        <span class="project-tag"><i class="fab fa-google"></i> Google Meet</span>
+        <span class="project-tag"><i class="fas fa-video"></i> Zoom API</span>
+        <span class="project-tag"><i class="fas fa-robot"></i> Bot Automation</span>
+        <span class="project-tag"><i class="fas fa-database"></i> CRM Integration</span>
+        <span class="project-tag"><i class="fas fa-chart-bar"></i> Analytics</span>
+      </div>
+      
+      <h3>Solution Architecture</h3>
+      <ul class="styled-list">
+        <li>Centralized webinar management system for all product lines</li>
+        <li>Automated registration workflows with multi-language support</li>
+        <li>Real-time attendance tracking with CRM synchronization</li>
+        <li>Custom ETL processes for engagement data analysis</li>
+        <li>Role-based access control for different teams</li>
+        <li>Automated reporting and alerting systems</li>
+      </ul>
+    </section>
+
+    <a href="https://r151127.github.io/kasturi-portfolio/" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
   </div>
 
   <script>
-    const ctx = document.getElementById('radarChart').getContext('2d');
+    // Platform Capabilities Chart
+    const ctx = document.getElementById('platformChart').getContext('2d');
     new Chart(ctx, {
       type: 'radar',
       data: {
-        labels: ['Automation Level', 'Scalability', 'User Experience', 'Multi-language Support', 'CRM Integration'],
+        labels: ['Automation', 'Scalability', 'User Experience', 'Multi-language', 'CRM Integration', 'Analytics'],
         datasets: [{
-          label: 'Capability Maturity',
-          data: [100, 95, 90, 85, 90],
-          fill: true,
-          backgroundColor: 'rgba(56, 189, 248, 0.2)',
-          borderColor: '#38bdf8',
-          pointBackgroundColor: '#38bdf8'
+          label: 'Platform Capability Score',
+          data: [100, 95, 90, 85, 90, 88],
+          backgroundColor: 'rgba(100, 255, 218, 0.2)',
+          borderColor: 'rgba(100, 255, 218, 1)',
+          pointBackgroundColor: 'rgba(100, 255, 218, 1)',
+          pointBorderColor: '#fff',
+          pointHoverRadius: 6,
+          pointHoverBorderWidth: 2
         }]
       },
       options: {
-        scales: {
-          r: {
-            angleLines: { color: '#334155' },
-            grid: { color: '#334155' },
-            pointLabels: { color: '#f5f5f5' },
-            ticks: { color: '#f5f5f5', backdropColor: 'transparent', beginAtZero: true, max: 100 }
-          }
-        },
+        responsive: true,
         plugins: {
           legend: {
+            position: 'top',
             labels: {
-              color: '#f5f5f5'
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Webinar Platform Capability Maturity',
+            color: '#64ffda',
+            font: {
+              family: "'Space Grotesk', sans-serif",
+              size: 16,
+              weight: '600'
+            }
+          }
+        },
+        scales: {
+          r: {
+            angleLines: {
+              color: 'rgba(148, 163, 184, 0.2)'
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.2)'
+            },
+            pointLabels: {
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
+            },
+            ticks: {
+              color: '#94a3b8',
+              backdropColor: 'transparent',
+              font: {
+                family: "'Space Mono', monospace"
+              },
+              beginAtZero: true,
+              max: 100
             }
           }
         }
