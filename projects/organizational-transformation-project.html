@@ -1,157 +1,484 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strategic Organizational Transformation</title>
-  <link rel="stylesheet" href="../styles.css">
+  <title>Strategic Organizational Transformation | Kasturi Vankela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --bg: #0a192f;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #64ffda;
+      --highlight: #112240;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 2rem;
     }
-    h1, h2, h3 {
-      color: #38bdf8;
+
+    /* Project Header */
+    .project-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      margin-bottom: 3rem;
     }
-    .highlight {
-      background: #1e293b;
-      padding: 1rem;
-      border-left: 4px solid #38bdf8;
+
+    .project-header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-item i {
+      color: var(--accent);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Project Sections */
+    .project-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .highlight-box {
+      background: rgba(100, 255, 218, 0.05);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
       border-radius: 4px;
       margin-bottom: 2rem;
     }
+
+    /* Metrics */
     .metrics-grid {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      padding-bottom: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
     }
-    .metric {
-      min-width: 240px;
-      background: #1f2937;
-      padding: 1rem;
+
+    .metric-card {
+      background: var(--highlight);
+      padding: 1.5rem;
       border-radius: 8px;
       text-align: center;
-      color: #facc15;
-      flex-shrink: 0;
-      box-shadow: 0 2px 6px rgba(255,255,255,0.05);
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.1);
     }
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Chart */
     .chart-container {
-      max-width: 700px;
-      margin: 2rem auto;
+      background: var(--highlight);
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 3rem 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    /* Feature Showcase */
+    .feature-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: var(--highlight);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .feature-card h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-card h3 i {
+      font-size: 1.2rem;
+    }
+
+    /* Lists */
+    .styled-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .styled-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .styled-list li::before {
+      content: '→';
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+
+    /* Back Button */
     .back-button {
-      display: block;
-      margin: 3rem auto;
-      text-align: center;
-      background: #38bdf8;
-      color: #0f0f0f;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
       text-decoration: none;
-      width: fit-content;
+      margin: 3rem 0;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.3);
+    }
+
+    .back-button:hover {
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateX(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 2rem;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Strategic Organizational Transformation & SOP Standardization</h1>
-    <p class="highlight">
-      Department-Wide Restructuring with Knowledge Management and Process Optimization Framework
-    </p>
+    <header class="project-header">
+      <div class="project-meta">
+        <span class="meta-item"><i class="fas fa-calendar-alt"></i> 2022 - Present</span>
+        <span class="meta-item"><i class="fas fa-user-tie"></i> Change Management Lead</span>
+        <span class="meta-item"><i class="fas fa-building"></i> NxtWave</span>
+      </div>
+      
+      <h1>Strategic Organizational Transformation</h1>
+      <p class="project-subtitle">Department-wide restructuring with knowledge management and process optimization framework</p>
+      
+      <div class="project-tags">
+        <span class="project-tag"><i class="fas fa-sitemap"></i> Restructuring</span>
+        <span class="project-tag"><i class="fas fa-book"></i> SOPs</span>
+        <span class="project-tag"><i class="fas fa-tasks"></i> SLAs</span>
+        <span class="project-tag"><i class="fas fa-chart-line"></i> KPIs</span>
+        <span class="project-tag"><i class="fas fa-cogs"></i> Process Optimization</span>
+      </div>
+    </header>
 
-    <section>
-      <h2>Project Objectives</h2>
-      <p>
-        Execute a complete organizational redesign with zero operational disruption, embed SOPs, implement SLA frameworks, optimize resource allocation, and boost efficiency through KPI-driven planning.
-      </p>
-    </section>
-
-    <section>
-      <h2>Outcomes</h2>
+    <section class="project-section">
+      <h2 class="section-title">Transformation Impact</h2>
       <div class="metrics-grid">
-        <div class="metric"><strong>100%</strong><br>Continuity during restructuring</div>
-        <div class="metric"><strong>Zero</strong><br>Operational disruption</div>
-        <div class="metric"><strong>+Efficiency</strong><br>Role-wise daily planning</div>
-        <div class="metric"><strong>SLA + SOP</strong><br>Standardization achieved</div>
-        <div class="metric"><strong>Cost↓</strong><br>Vendor savings via negotiation</div>
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Operational continuity</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">Zero</div>
+          <div class="metric-label">Disruption during change</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">85%+</div>
+          <div class="metric-label">Productivity improvement</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">92%</div>
+          <div class="metric-label">SLA adherence</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">Significant</div>
+          <div class="metric-label">Cost savings</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">SOP documentation</div>
+        </div>
       </div>
     </section>
 
-    <section class="chart-container">
-      <canvas id="kpiChart"></canvas>
-    </section>
-
-    <section>
-      <h2>My Role</h2>
-      <p class="highlight">Organizational Change Management Lead & Process Standardization Manager</p>
-
-      <h2>Responsibilities</h2>
-      <ul>
-        <li>Led strategy and execution of department restructuring</li>
-        <li>Created SOPs, SLAs, and KPI frameworks</li>
-        <li>Implemented Zoho Creator for task visibility</li>
-        <li>Established knowledge transfer and resource continuity systems</li>
-        <li>Negotiated vendor contracts for operational tools</li>
+    <section class="project-section">
+      <h2 class="section-title">Project Overview</h2>
+      <div class="highlight-box">
+        <p>Executed comprehensive organizational restructuring while maintaining operational continuity, implementing standardized processes, and establishing robust knowledge transfer protocols to optimize resource allocation and improve team efficiency.</p>
+      </div>
+      
+      <h3>Key Objectives</h3>
+      <ul class="styled-list">
+        <li>Complete department restructuring with zero operational disruption</li>
+        <li>Implement standardized processes and performance measurement systems</li>
+        <li>Establish knowledge transfer protocols for organizational resilience</li>
+        <li>Optimize resource allocation through role-based planning</li>
+        <li>Create scalable operational frameworks supporting business growth</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Deliverables</h2>
-      <ul>
-        <li>Centralized task and SLA management via Zoho</li>
-        <li>SOP and KPI documentation across all teams</li>
-        <li>Cross-training protocols and resource resilience plans</li>
-        <li>Restructured team setup with clear performance tracking</li>
-        <li>Annual cost savings via tool/vendor alignment</li>
+    <section class="project-section">
+      <h2 class="section-title">Key Initiatives</h2>
+      <div class="feature-showcase">
+        <div class="feature-card">
+          <h3><i class="fas fa-sitemap"></i> Organizational Restructuring</h3>
+          <p>Complete department redesign with maintained operational continuity</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-tasks"></i> Zoho Implementation</h3>
+          <p>Centralized task management system improving visibility</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-book"></i> SOP Documentation</h3>
+          <p>Comprehensive standard operating procedures for all processes</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-chart-line"></i> KPI Framework</h3>
+          <p>Performance measurement systems for continuous improvement</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-users"></i> Cross-Training</h3>
+          <p>Alternative resource programs minimizing single points of failure</p>
+        </div>
+        <div class="feature-card">
+          <h3><i class="fas fa-handshake"></i> Vendor Optimization</h3>
+          <p>Strategic negotiations achieving significant cost savings</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Performance Improvement</h2>
+      <div class="chart-container">
+        <canvas id="performanceChart"></canvas>
+      </div>
+      
+      <ul class="styled-list">
+        <li>Successfully completed department-wide restructuring with zero operational disruption</li>
+        <li>Implemented centralized task management system (Zoho Creator) for improved visibility</li>
+        <li>Established comprehensive SLA frameworks and standardized operating procedures</li>
+        <li>Improved team productivity through role-wise planning and performance tracking</li>
+        <li>Created sustainable knowledge management practices ensuring organizational resilience</li>
+        <li>Achieved significant cost savings through vendor negotiations and tool alignment</li>
       </ul>
     </section>
 
-    <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+    <section class="project-section">
+      <h2 class="section-title">My Contributions</h2>
+      <div class="highlight-box">
+        <p>As Organizational Change Management Lead & Process Standardization Manager, I led the strategic planning and execution of this comprehensive transformation initiative.</p>
+      </div>
+      
+      <h3>Key Responsibilities</h3>
+      <ul class="styled-list">
+        <li>Led strategy and execution of department-wide restructuring</li>
+        <li>Managed knowledge transfer sessions ensuring zero operational disruption</li>
+        <li>Implemented Zoho Creator for centralized task visibility and coordination</li>
+        <li>Designed role-wise standard day plans and performance frameworks</li>
+        <li>Created comprehensive SOP documentation for all critical processes</li>
+        <li>Established KPI measurement systems for continuous improvement</li>
+        <li>Managed resource reallocation and cross-training programs</li>
+        <li>Led vendor negotiations achieving significant cost optimizations</li>
+        <li>Coordinated with legal and procurement for compliance management</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Technical Implementation</h2>
+      <div class="project-tags" style="margin-bottom: 2rem;">
+        <span class="project-tag"><i class="fas fa-cloud"></i> Zoho Creator</span>
+        <span class="project-tag"><i class="fas fa-file-alt"></i> SOP Documentation</span>
+        <span class="project-tag"><i class="fas fa-balance-scale"></i> SLA Frameworks</span>
+        <span class="project-tag"><i class="fas fa-chart-bar"></i> KPI Dashboards</span>
+        <span class="project-tag"><i class="fas fa-exchange-alt"></i> Knowledge Transfer</span>
+      </div>
+      
+      <h3>Solution Architecture</h3>
+      <ul class="styled-list">
+        <li>Centralized task management system with Zoho Creator</li>
+        <li>Comprehensive documentation repository for all SOPs</li>
+        <li>Performance dashboards tracking KPIs and SLAs</li>
+        <li>Structured knowledge transfer programs</li>
+        <li>Cross-training schedules and competency matrices</li>
+        <li>Vendor management and cost optimization frameworks</li>
+      </ul>
+    </section>
+
+    <a href="https://r151127.github.io/kasturi-portfolio/" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
   </div>
 
   <script>
-    const ctx = document.getElementById('kpiChart').getContext('2d');
+    // Performance Improvement Chart
+    const ctx = document.getElementById('performanceChart').getContext('2d');
     new Chart(ctx, {
       type: 'bar',
       data: {
         labels: ['Productivity', 'Visibility', 'SLA Adherence', 'SOP Adoption', 'Cost Efficiency'],
         datasets: [{
-          label: 'Performance Impact (%)',
+          label: 'Performance Improvement (%)',
           data: [85, 90, 92, 88, 80],
-          backgroundColor: '#38bdf8'
+          backgroundColor: 'rgba(100, 255, 218, 0.8)',
+          borderColor: 'rgba(100, 255, 218, 1)',
+          borderWidth: 1
         }]
       },
       options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Organizational Transformation Impact',
+            color: '#64ffda',
+            font: {
+              family: "'Space Grotesk', sans-serif",
+              size: 16,
+              weight: '600'
+            }
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
             max: 100,
             ticks: {
-              color: '#f5f5f5'
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Mono', monospace"
+              }
             },
             grid: {
-              color: '#334155'
+              color: 'rgba(148, 163, 184, 0.2)'
             }
           },
           x: {
             ticks: {
-              color: '#f5f5f5'
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
             },
             grid: {
-              color: '#334155'
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: '#f5f5f5'
+              color: 'rgba(148, 163, 184, 0.2)'
             }
           }
         }
