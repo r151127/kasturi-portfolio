@@ -1,137 +1,407 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cost Optimization & Vendor Management</title>
-  <link rel="stylesheet" href="../styles.css">
+  <title>Cost Optimization & Vendor Management | Kasturi Vankela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --bg: #0a192f;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #64ffda;
+      --highlight: #112240;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 2rem;
-      scroll-behavior: smooth;
     }
-    h1, h2, h3 {
-      color: #38bdf8;
+
+    /* Project Header */
+    .project-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      margin-bottom: 3rem;
     }
-    .highlight {
-      background: linear-gradient(to right, #1e293b, #0f172a);
-      border-left: 5px solid #22d3ee;
-      padding: 1rem;
-      border-radius: 6px;
+
+    .project-header h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
       margin-bottom: 2rem;
-      font-size: 1.1rem;
+      max-width: 800px;
     }
-    .timeline {
-      border-left: 3px solid #38bdf8;
-      margin: 2rem 0;
-      padding-left: 1.5rem;
-    }
-    .timeline-item {
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -1.1rem;
-      top: 0.25rem;
-      width: 0.75rem;
-      height: 0.75rem;
-      background-color: #38bdf8;
-      border-radius: 50%;
-    }
-    .metric-grid {
+
+    .project-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin-top: 2rem;
+      margin-bottom: 2rem;
     }
-    .metric {
-      flex: 1 1 250px;
-      background-color: #1f2937;
-      padding: 1rem;
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-item i {
+      color: var(--accent);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Project Sections */
+    .project-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .highlight-box {
+      background: rgba(100, 255, 218, 0.05);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+
+    /* Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .metric-card {
+      background: var(--highlight);
+      padding: 1.5rem;
       border-radius: 8px;
       text-align: center;
-      color: #facc15;
-      box-shadow: 0 2px 6px rgba(255,255,255,0.05);
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.1);
     }
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Chart */
     .chart-container {
-      max-width: 600px;
-      margin: 2rem auto;
+      background: var(--highlight);
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 3rem 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    /* Timeline */
+    .timeline {
+      border-left: 3px solid var(--accent);
+      margin: 3rem 0;
+      padding-left: 2rem;
+    }
+
+    .timeline-item {
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.3rem;
+      top: 0.2rem;
+      width: 1rem;
+      height: 1rem;
+      background-color: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* Lists */
+    .styled-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .styled-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .styled-list li::before {
+      content: '→';
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+
+    /* Back Button */
     .back-button {
-      display: block;
-      margin: 3rem auto;
-      text-align: center;
-      background: #38bdf8;
-      color: #0f0f0f;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
       text-decoration: none;
+      margin: 3rem 0;
+      transition: var(--transition);
+      border: 1px solid rgba(100, 255, 218, 0.3);
+    }
+
+    .back-button:hover {
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateX(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 2rem;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Cost Optimization & Vendor Management Initiative</h1>
-    <p class="highlight">
-      Strategic Vendor Management and Cost Optimization Program with Technology Platform Analysis
-    </p>
+    <header class="project-header">
+      <div class="project-meta">
+        <span class="meta-item"><i class="fas fa-calendar-alt"></i> 2022 - Present</span>
+        <span class="meta-item"><i class="fas fa-user-tie"></i> Vendor Management Lead</span>
+        <span class="meta-item"><i class="fas fa-building"></i> NxtWave</span>
+      </div>
+      
+      <h1>Cost Optimization & Vendor Management</h1>
+      <p class="project-subtitle">Strategic vendor management and cost optimization program with technology platform analysis</p>
+      
+      <div class="project-tags">
+        <span class="project-tag"><i class="fas fa-money-bill-wave"></i> Cost Reduction</span>
+        <span class="project-tag"><i class="fas fa-phone-alt"></i> TATA Cloud</span>
+        <span class="project-tag"><i class="fas fa-search"></i> Platform Analysis</span>
+        <span class="project-tag"><i class="fas fa-handshake"></i> Vendor Negotiation</span>
+        <span class="project-tag"><i class="fas fa-chart-line"></i> Performance Tracking</span>
+      </div>
+    </header>
 
-    <section>
-      <h2>Objectives</h2>
-      <p>
-        Execute a data-driven vendor strategy to cut costs, improve service delivery, analyze technology platforms, and build sustainable vendor relationships.
-      </p>
+    <section class="project-section">
+      <h2 class="section-title">Project Impact</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">60%+</div>
+          <div class="metric-label">Cost reduction</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">20+</div>
+          <div class="metric-label">CBAs scaled</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">89%</div>
+          <div class="metric-label">Pick ratio (TATA)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">Significant</div>
+          <div class="metric-label">Annual savings</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Service continuity</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">2</div>
+          <div class="metric-label">Platforms analyzed</div>
+        </div>
+      </div>
     </section>
 
-    <section class="metric-grid">
-      <div class="metric"><strong>60%+</strong><br>Cost Reduction</div>
-      <div class="metric"><strong>20+</strong><br>CBAs Scaled on TATA</div>
-      <div class="metric"><strong>2 Platforms</strong><br>Compared in Audit</div>
-      <div class="metric"><strong>Annual Savings</strong><br>Significant Realized</div>
-      <div class="metric"><strong>100%</strong><br>Service Continuity</div>
-    </section>
-
-    <section class="chart-container">
-      <canvas id="vendorChart"></canvas>
-    </section>
-
-    <section>
-      <h2>My Role</h2>
-      <p class="highlight">Strategic Vendor Management Lead & Cost Optimization Project Manager</p>
-    </section>
-
-    <section class="timeline">
-      <h2>Key Responsibilities</h2>
-      <div class="timeline-item">Conducted Knowlarity vs normal call audit optimizing pick ratios</div>
-      <div class="timeline-item">Implemented cloud calling (TATA) post-pilot success</div>
-      <div class="timeline-item">Negotiated vendor contracts achieving 60%+ cost savings</div>
-      <div class="timeline-item">Built vendor evaluation & onboarding framework</div>
-      <div class="timeline-item">Established procurement & compliance tracking process</div>
-    </section>
-
-    <section>
-      <h2>Deliverables</h2>
-      <ul>
-        <li>Cost optimization through tech analysis and vendor swaps</li>
-        <li>CRM-integrated TATA Services cloud calling scaled across operations</li>
-        <li>Vendor management protocols and tracking dashboards</li>
-        <li>Procurement workflows ensuring compliance and cost alignment</li>
+    <section class="project-section">
+      <h2 class="section-title">Project Overview</h2>
+      <div class="highlight-box">
+        <p>Executed a comprehensive vendor management strategy focused on cost optimization, technology platform analysis, and strategic supplier relationship development to reduce operational costs while improving service quality.</p>
+      </div>
+      
+      <h3>Key Objectives</h3>
+      <ul class="styled-list">
+        <li>Reduce operational costs through strategic negotiations and platform analysis</li>
+        <li>Implement alternative technology solutions with better cost-effectiveness</li>
+        <li>Establish sustainable vendor management frameworks</li>
+        <li>Maintain or improve service quality while optimizing costs</li>
+        <li>Create scalable vendor relationship management processes</li>
       </ul>
     </section>
 
-    <a class="back-button" href="https://r151127.github.io/kasturi-portfolio/">← Back to Portfolio</a>
+    <section class="project-section">
+      <h2 class="section-title">Technology Comparison</h2>
+      <div class="chart-container">
+        <canvas id="platformChart"></canvas>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Implementation Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>Knowlarity vs Normal Calls Audit</strong>
+          <p>Conducted comprehensive analysis optimizing pick ratios and cost effectiveness</p>
+        </div>
+        <div class="timeline-item">
+          <strong>TATA Cloud Calling Pilot</strong>
+          <p>Implemented and validated cloud calling solution with successful results</p>
+        </div>
+        <div class="timeline-item">
+          <strong>Full-scale Implementation</strong>
+          <p>Scaled TATA Services to 20+ CBAs after successful pilot</p>
+        </div>
+        <div class="timeline-item">
+          <strong>Vendor Negotiations</strong>
+          <p>Achieved 60%+ cost reductions in vendor contracts</p>
+        </div>
+        <div class="timeline-item">
+          <strong>Framework Establishment</strong>
+          <p>Created vendor evaluation and management protocols</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">My Contributions</h2>
+      <div class="highlight-box">
+        <p>As Strategic Vendor Management Lead & Cost Optimization Project Manager, I led initiatives that achieved significant cost savings while improving service quality through technology optimization.</p>
+      </div>
+      
+      <h3>Key Responsibilities</h3>
+      <ul class="styled-list">
+        <li>Led strategic vendor management initiatives focused on cost optimization</li>
+        <li>Conducted Knowlarity vs normal calls analysis for pick ratio optimization</li>
+        <li>Managed TATA Services cloud calling implementation scaled to 20+ CBAs</li>
+        <li>Negotiated vendor contracts achieving 60%+ cost reductions</li>
+        <li>Established vendor evaluation frameworks for technology platforms</li>
+        <li>Coordinated cross-functional teams for vendor onboarding and monitoring</li>
+        <li>Implemented alternative calling solutions reducing operational costs</li>
+        <li>Created vendor management protocols for consistent evaluation</li>
+        <li>Established monitoring frameworks for vendor performance tracking</li>
+        <li>Optimized procurement processes for compliance and cost efficiency</li>
+      </ul>
+    </section>
+
+    <section class="project-section">
+      <h2 class="section-title">Key Deliverables</h2>
+      <ul class="styled-list">
+        <li>60%+ cost reduction through strategic vendor negotiations</li>
+        <li>TATA Services cloud calling implemented across 20+ CBAs</li>
+        <li>Comprehensive Knowlarity vs normal calls analysis</li>
+        <li>Alternative calling solutions reducing operational costs</li>
+        <li>Vendor evaluation frameworks for informed decision-making</li>
+        <li>Vendor management protocols for consistent relationship management</li>
+        <li>Cost optimization frameworks achieving significant annual savings</li>
+        <li>Performance monitoring systems tracking vendor effectiveness</li>
+        <li>Optimized procurement processes ensuring compliance</li>
+        <li>Sustainable vendor relationship management frameworks</li>
+      </ul>
+    </section>
+
+    <a href="https://r151127.github.io/kasturi-portfolio/" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
   </div>
 
   <script>
-    const ctx = document.getElementById('vendorChart').getContext('2d');
+    // Platform Comparison Chart
+    const ctx = document.getElementById('platformChart').getContext('2d');
     new Chart(ctx, {
       type: 'bar',
       data: {
@@ -139,29 +409,65 @@
         datasets: [{
           label: 'Pick Ratio (%)',
           data: [72, 63, 89],
-          backgroundColor: ['#facc15', '#f87171', '#38bdf8']
+          backgroundColor: [
+            'rgba(100, 255, 218, 0.7)',
+            'rgba(148, 163, 184, 0.7)',
+            'rgba(100, 255, 218, 0.4)'
+          ],
+          borderColor: [
+            'rgba(100, 255, 218, 1)',
+            'rgba(148, 163, 184, 1)',
+            'rgba(100, 255, 218, 1)'
+          ],
+          borderWidth: 1
         }]
       },
       options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Call Platform Performance Comparison',
+            color: '#64ffda',
+            font: {
+              family: "'Space Grotesk', sans-serif",
+              size: 16,
+              weight: '600'
+            }
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
+            max: 100,
             ticks: {
-              color: '#f5f5f5'
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Mono', monospace"
+              }
             },
-            grid: { color: '#334155' }
+            grid: {
+              color: 'rgba(148, 163, 184, 0.2)'
+            }
           },
           x: {
             ticks: {
-              color: '#f5f5f5'
+              color: '#e2e8f0',
+              font: {
+                family: "'Space Grotesk', sans-serif"
+              }
             },
-            grid: { color: '#334155' }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: '#f5f5f5'
+            grid: {
+              color: 'rgba(148, 163, 184, 0.2)'
             }
           }
         }
