@@ -476,9 +476,139 @@
       letter-spacing: 0.5px;
       border: 1px solid rgba(100, 255, 218, 0.3);
     }
+
+    /* AI Assistant Styles */
+    .ai-assistant-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .ai-toggle-btn {
+      background: var(--accent);
+      color: var(--bg);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
+      transition: all 0.3s ease;
+      font-size: 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .ai-toggle-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(100, 255, 218, 0.5);
+    }
+
+    .ai-toggle-btn .close-icon {
+      display: none;
+    }
+
+    .ai-toggle-btn.active .close-icon {
+      display: block;
+    }
+
+    .ai-toggle-btn.active .robot-icon {
+      display: none;
+    }
+
+    .ai-chat-widget {
+      width: 400px;
+      height: 500px;
+      background: var(--highlight);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      z-index: 5;
+      border: 1px solid rgba(100, 255, 218, 0.2);
+    }
+
+    .ai-chat-widget.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chat-header {
+      background: rgba(17, 34, 64, 0.9);
+      padding: 15px 20px;
+      border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat-header h3 {
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .chat-iframe {
+      flex: 1;
+      border: none;
+      background: var(--bg);
+    }
+
+    .chat-footer {
+      padding: 10px 15px;
+      text-align: center;
+      background: rgba(17, 34, 64, 0.9);
+      border-top: 1px solid rgba(100, 255, 218, 0.2);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .ai-assistant-container {
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .ai-chat-widget {
+        width: calc(100vw - 40px);
+        height: 400px;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+      }
+    }
   </style>
 </head>
 <body>
+
+<!-- AI Assistant Container -->
+<div class="ai-assistant-container">
+  <div class="ai-toggle-btn" id="aiToggle">
+    <i class="fas fa-robot robot-icon"></i>
+    <i class="fas fa-times close-icon"></i>
+  </div>
+  <div class="ai-chat-widget" id="aiChatWidget">
+    <div class="chat-header">
+      <i class="fas fa-robot" style="color: var(--accent);"></i>
+      <h3>Ask Virtual Kasturi</h3>
+    </div>
+    <iframe class="chat-iframe" src="https://poe.com/virtual_kasturi" title="Virtual Kasturi AI Assistant"></iframe>
+    <div class="chat-footer">
+      Powered by Poe.com • Ask me anything about Kasturi's background and projects
+    </div>
+  </div>
+</div>
 
 <aside>
   <div>
@@ -855,6 +985,26 @@
         link.classList.add('active');
       }
     });
+  });
+
+  // AI Assistant Toggle
+  const aiToggle = document.getElementById('aiToggle');
+  const aiChatWidget = document.getElementById('aiChatWidget');
+
+  aiToggle.addEventListener('click', () => {
+    aiToggle.classList.toggle('active');
+    aiChatWidget.classList.toggle('active');
+  });
+
+  // Close chat when clicking outside
+  document.addEventListener('click', (e) => {
+    const isChatWidget = e.target.closest('#aiChatWidget');
+    const isToggleBtn = e.target.closest('#aiToggle');
+    
+    if (!isChatWidget && !isToggleBtn && aiChatWidget.classList.contains('active')) {
+      aiToggle.classList.remove('active');
+      aiChatWidget.classList.remove('active');
+    }
   });
 </script>
 
