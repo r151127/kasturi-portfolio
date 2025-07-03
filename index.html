@@ -598,6 +598,7 @@
     <i class="fas fa-robot robot-icon"></i>
     <i class="fas fa-times close-icon"></i>
   </div>
+<!--
   <div class="ai-chat-widget" id="aiChatWidget">
     <div class="chat-header">
       <i class="fas fa-robot" style="color: var(--accent);"></i>
@@ -608,6 +609,7 @@
       Powered by Poe.com • Ask me anything about Kasturi's background and projects
     </div>
   </div>
+-->
 </div>
 
 <aside>
@@ -987,14 +989,12 @@
     });
   });
 
-  // AI Assistant Toggle
-  const aiToggle = document.getElementById('aiToggle');
-  const aiChatWidget = document.getElementById('aiChatWidget');
+  // AI Assistant Toggle - open in new tab
+const aiToggle = document.getElementById('aiToggle');
+aiToggle.addEventListener('click', () => {
+  window.open('https://poe.com/Virtual_Kasturi', '_blank');
+});
 
-  aiToggle.addEventListener('click', () => {
-    aiToggle.classList.toggle('active');
-    aiChatWidget.classList.toggle('active');
-  });
 
   // Close chat when clicking outside
   document.addEventListener('click', (e) => {
