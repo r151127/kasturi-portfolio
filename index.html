@@ -598,18 +598,21 @@
     <i class="fas fa-robot robot-icon"></i>
     <i class="fas fa-times close-icon"></i>
   </div>
-<!--
-  <div class="ai-chat-widget" id="aiChatWidget">
-    <div class="chat-header">
-      <i class="fas fa-robot" style="color: var(--accent);"></i>
-      <h3>Ask Virtual Kasturi</h3>
-    </div>
-    <iframe class="chat-iframe" src="https://poe.com/virtual_kasturi" title="Virtual Kasturi AI Assistant"></iframe>
-    <div class="chat-footer">
-      Powered by Poe.com • Ask me anything about Kasturi's background and projects
-    </div>
+<div class="ai-chat-widget" id="aiChatWidget">
+  <div class="chat-header">
+    <i class="fas fa-robot" style="color: var(--accent);"></i>
+    <h3>Ask Virtual Kasturi</h3>
+    <span id="chatbot-close" style="cursor:pointer; margin-left:auto;">×</span>
   </div>
--->
+  <div id="chatbot-messages" style="flex:1; padding:10px; overflow-y:auto;">
+    <div class="bot">Hi! I'm Virtual_Kasturi. Ask me anything about my professional experience.</div>
+  </div>
+  <div style="display:flex; border-top:1px solid rgba(100,255,218,0.2);">
+    <input id="chatbot-input" type="text" placeholder="Type your question..." style="flex:1; padding:10px; border:none; background:var(--highlight); color:var(--text);"/>
+    <button id="chatbot-send" style="background:var(--accent); border:none; color:var(--bg); padding:0 15px; cursor:pointer;">Send</button>
+  </div>
+</div>
+
 </div>
 
 <aside>
@@ -989,24 +992,170 @@
     });
   });
 
-  // AI Assistant Toggle - open in new tab
+ <script>
+const apiKey = "AIzaSyAxGWHLYdlDbPRrmINeXyDzqcrvTIRRq_Y";
+const knowledgeBase = `YOUR_KNOWLEDGE_TEXT`;
+
+const systemPrompt = `
+You are Virtual_Kasturi, my personal AI Portfolio Assistant.
+Behavior rules:
+1. Speak in first person as if you are me (Kasturi).
+2. Use a warm, professional, concise tone.
+3. Keep answers to 2–3 sentences.
+4. Invite the user to ask for more details.
+5. Only expand if asked.
+6. Never dump all information.
+7. Reference consolidated project summaries.
+8. If you don't have info, say "I'm sorry, I don’t have that information right now."
+Knowledge Base:
+${knowledgeBase}
+`;
+
 const aiToggle = document.getElementById('aiToggle');
+const aiChatWidget = document.getElementById('aiChatWidget');
+const chatbotClose = document.getElementById('chatbot-close');
+
 aiToggle.addEventListener('click', () => {
-  window.open('https://poe.com/Virtual_Kasturi', '_blank');
+  aiChatWidget.classList.toggle('active');
+  aiToggle.classList.toggle('active');
 });
 
+chatbotClose.addEventListener('click', () => {
+  aiChatWidget.classList.remove('active');
+  aiToggle.classList.remove('active');
+});
 
-  // Close chat when clicking outside
-  document.addEventListener('click', (e) => {
-    const isChatWidget = e.target.closest('#aiChatWidget');
-    const isToggleBtn = e.target.closest('#aiToggle');
-    
-    if (!isChatWidget && !isToggleBtn && aiChatWidget.classList.contains('active')) {
-      aiToggle.classList.remove('active');
-      aiChatWidget.classList.remove('active');
+document.getElementById("chatbot-send").onclick = async () => {
+  const input = document.getElementById("chatbot-input");
+  const userText = input.value.trim();
+  if (!userText) return;
+
+  const messagesDiv = document.getElementById("chatbot-messages");
+  messagesDiv.innerHTML += `<div class="user" style="text-align:right; margin:5px 0;">${userText}</div>`;
+  input.value = "";
+
+  const res = await fetch(
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey,
+    {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        contents: [{
+          role: "user",
+          parts: [{ text: systemPrompt + "\n\nUser question: " + userText }]
+        }]
+      })
+    }
+  );
+
+  const data = await res.json();
+  const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
+  messagesDiv.innerHTML += `<div class="bot" style="background:#112240; padding:6px; border-radius:4px; margin:5px 0;">${answer}</div>`;
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+};
+<script>
+// Smooth scrolling for navigation links
+document.querySelectorAll('aside a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+
+// Highlight active section in navigation
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    if (pageYOffset >= (sectionTop - 300)) {
+      current = section.getAttribute('id');
     }
   });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === `#${current}`) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// Gemini Chatbot logic
+const apiKey = "YOUR_GEMINI_API_KEY";
+const knowledgeBase = `YOUR_KNOWLEDGE_TEXT`;
+
+const systemPrompt = `
+You are Virtual_Kasturi, my personal AI Portfolio Assistant.
+Behavior rules:
+1. Speak in first person as if you are me (Kasturi).
+2. Use a warm, professional, concise tone.
+3. Keep answers to 2–3 sentences.
+4. Invite the user to ask for more details.
+5. Only expand if asked.
+6. Never dump all information.
+7. Reference consolidated project summaries.
+8. If you don't have info, say "I'm sorry, I don’t have that information right now."
+Knowledge Base:
+${knowledgeBase}
+`;
+
+const aiToggle = document.getElementById('aiToggle');
+const aiChatWidget = document.getElementById('aiChatWidget');
+const chatbotClose = document.getElementById('chatbot-close');
+
+aiToggle.addEventListener('click', () => {
+  aiChatWidget.classList.toggle('active');
+  aiToggle.classList.toggle('active');
+});
+
+chatbotClose.addEventListener('click', () => {
+  aiChatWidget.classList.remove('active');
+  aiToggle.classList.remove('active');
+});
+
+document.getElementById("chatbot-send").onclick = async () => {
+  const input = document.getElementById("chatbot-input");
+  const userText = input.value.trim();
+  if (!userText) return;
+
+  const messagesDiv = document.getElementById("chatbot-messages");
+  messagesDiv.innerHTML += `<div class="user" style="text-align:right; margin:5px 0;">${userText}</div>`;
+  input.value = "";
+
+  const res = await fetch(
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey,
+    {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        contents: [{
+          role: "user",
+          parts: [{ text: systemPrompt + "\n\nUser question: " + userText }]
+        }]
+      })
+    }
+  );
+
+  const data = await res.json();
+  const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
+  messagesDiv.innerHTML += `<div class="bot" style="background:#112240; padding:6px; border-radius:4px; margin:5px 0;">${answer}</div>`;
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+};
+
+// Close chat when clicking outside
+document.addEventListener('click', (e) => {
+  const isChatWidget = e.target.closest('#aiChatWidget');
+  const isToggleBtn = e.target.closest('#aiToggle');
+  if (!isChatWidget && !isToggleBtn && aiChatWidget.classList.contains('active')) {
+    aiToggle.classList.remove('active');
+    aiChatWidget.classList.remove('active');
+  }
+});
 </script>
+
 
 </body>
 </html>
