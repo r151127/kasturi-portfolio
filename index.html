@@ -1049,8 +1049,8 @@
       }
     });
   });
-</script>
-<!-- Your EXACT same UI container (unchanged) -->
+
+<!-- Custom Chat UI Container (matches your design exactly) -->
 <div class="chatbot-container">
   <button class="chatbot-toggle" id="chatbotToggle">
     <i class="fas fa-robot"></i>
@@ -1060,10 +1060,9 @@
       <i class="fas fa-robot" style="color: var(--accent);"></i>
       <h3>Virtual Kasturi Assistant</h3>
     </div>
-    <!-- n8n injects chat here (hidden initially) -->
-    <div id="n8n-chat" style="display: none;"></div>
-    <!-- Your original welcome messages (visible by default) -->
-    <div class="chatbot-messages" id="chatbotMessages">
+    
+    <!-- Static welcome message (your exact content) -->
+    <div id="static-welcome-message">
       <div class="message bot-message">
         Hi there! I'm Virtual Kasturi. Ask me anything about my professional experience, projects, or skills.
       </div>
@@ -1077,32 +1076,43 @@
         </ul>
       </div>
     </div>
+    
+    <!-- n8n chat container (hidden until first interaction) -->
+    <div id="n8n-chat" style="display: none;"></div>
   </div>
 </div>
 
-<!-- n8n Integration (hidden until first interaction) -->
+<!-- n8n Integration -->
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <script type="module">
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-  // Initialize n8n (hidden by default)
-  const n8nChat = createChat({
+  // Initialize n8n chat
+  createChat({
     webhookUrl: 'https://kasturidevproject.app.n8n.cloud/webhook/332925f2-37fd-4c13-9384-fb064fdc617a/chat',
     target: '#n8n-chat',
-    hideInputUntilOpen: true // Keeps UI clean until needed
+    welcomeMessage: false, // Disable n8n's default welcome
+    theme: {
+      primaryText: '#e2e8f0',
+      secondaryText: '#94a3b8',
+      primaryBg: '#112240',
+      secondaryBg: '#0a192f',
+      accent: '#64ffda'
+    }
   });
 
-  // Your original toggle button logic
+  // Toggle functionality
   document.getElementById('chatbotToggle').addEventListener('click', function() {
-    const window = document.getElementById('chatbotWindow');
-    window.classList.toggle('active');
-
-    // Only show n8n after first interaction
-    if (window.classList.contains('active')) {
+    const chatWindow = document.getElementById('chatbotWindow');
+    chatWindow.classList.toggle('active');
+    
+    // Switch between static message and n8n chat
+    if (chatWindow.classList.contains('active')) {
+      document.getElementById('static-welcome-message').style.display = 'none';
       document.getElementById('n8n-chat').style.display = 'block';
-      document.getElementById('chatbotMessages').style.display = 'none';
     } else {
-      document.getElementById('chatbotMessages').style.display = 'block';
+      document.getElementById('static-welcome-message').style.display = 'block';
+      document.getElementById('n8n-chat').style.display = 'none';
     }
   });
 </script>
