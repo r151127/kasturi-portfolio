@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
   <style>
     :root {
       --bg: #0a192f;
@@ -17,6 +18,58 @@
       --highlight: #112240;
       --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       --transition: all 0.3s ease;
+      
+      /* Custom n8n chat variables to match your theme */
+      --chat--color-primary: #64ffda;
+      --chat--color-primary-shade-50: #5ae6c7;
+      --chat--color-primary-shade-100: #50ccb3;
+      --chat--color-secondary: #112240;
+      --chat--color-secondary-shade-50: #0f1e3a;
+      --chat--color-white: #e2e8f0;
+      --chat--color-light: #94a3b8;
+      --chat--color-light-shade-50: #7f8ea3;
+      --chat--color-light-shade-100: #6a798e;
+      --chat--color-medium: #233554;
+      --chat--color-dark: #0a192f;
+      --chat--color-disabled: #777980;
+      --chat--color-typing: #404040;
+
+      --chat--spacing: 1rem;
+      --chat--border-radius: 0.25rem;
+      --chat--transition-duration: 0.15s;
+
+      --chat--window--width: 400px;
+      --chat--window--height: 500px;
+
+      --chat--header-height: auto;
+      --chat--header--padding: var(--chat--spacing);
+      --chat--header--background: var(--highlight);
+      --chat--header--color: var(--accent);
+      --chat--header--border-top: none;
+      --chat--header--border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+      --chat--heading--font-size: 1.2rem;
+      --chat--subtitle--font-size: inherit;
+      --chat--subtitle--line-height: 1.8;
+
+      --chat--textarea--height: 50px;
+
+      --chat--message--font-size: 1rem;
+      --chat--message--padding: var(--chat--spacing);
+      --chat--message--border-radius: var(--chat--border-radius);
+      --chat--message-line-height: 1.8;
+      --chat--message--bot--background: var(--highlight);
+      --chat--message--bot--color: var(--text);
+      --chat--message--bot--border: none;
+      --chat--message--user--background: var(--accent);
+      --chat--message--user--color: var(--bg);
+      --chat--message--user--border: none;
+      --chat--message--pre--background: rgba(0, 0, 0, 0.05);
+
+      --chat--toggle--background: var(--accent);
+      --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+      --chat--toggle--active--background: var(--chat--color-primary-shade-100);
+      --chat--toggle--color: var(--bg);
+      --chat--toggle--size: 60px;
     }
 
     * {
@@ -477,143 +530,26 @@
       border: 1px solid rgba(100, 255, 218, 0.3);
     }
 
-    /* AI Assistant Styles */
-    .ai-assistant-container {
+    /* Custom n8n chat container */
+    .n8n-chat-container {
       position: fixed;
       bottom: 30px;
       right: 30px;
       z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    .ai-toggle-btn {
-      background: var(--accent);
-      color: var(--bg);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
-      transition: all 0.3s ease;
-      font-size: 24px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .ai-toggle-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(100, 255, 218, 0.5);
-    }
-
-    .ai-toggle-btn .close-icon {
-      display: none;
-    }
-
-    .ai-toggle-btn.active .close-icon {
-      display: block;
-    }
-
-    .ai-toggle-btn.active .robot-icon {
-      display: none;
-    }
-
-    .ai-chat-widget {
-      width: 400px;
-      height: 500px;
-      background: var(--highlight);
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      position: absolute;
-      bottom: 70px;
-      right: 0;
-      z-index: 5;
-      border: 1px solid rgba(100, 255, 218, 0.2);
-    }
-
-    .ai-chat-widget.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .chat-header {
-      background: rgba(17, 34, 64, 0.9);
-      padding: 15px 20px;
-      border-bottom: 1px solid rgba(100, 255, 218, 0.2);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .chat-header h3 {
-      color: var(--accent);
-      font-size: 1.1rem;
-      margin: 0;
-    }
-
-    .chat-iframe {
-      flex: 1;
-      border: none;
-      background: var(--bg);
-    }
-
-    .chat-footer {
-      padding: 10px 15px;
-      text-align: center;
-      background: rgba(17, 34, 64, 0.9);
-      border-top: 1px solid rgba(100, 255, 218, 0.2);
-      font-size: 0.8rem;
-      color: var(--muted);
     }
 
     @media (max-width: 768px) {
-      .ai-assistant-container {
+      .n8n-chat-container {
         bottom: 20px;
         right: 20px;
-      }
-      
-      .ai-chat-widget {
-        width: calc(100vw - 40px);
-        height: 400px;
-        right: 0;
-        left: 0;
-        margin: 0 auto;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- AI Assistant Container -->
-<div class="ai-assistant-container">
-  <div class="ai-toggle-btn" id="aiToggle">
-    <i class="fas fa-robot robot-icon"></i>
-    <i class="fas fa-times close-icon"></i>
-  </div>
-<div class="ai-chat-widget" id="aiChatWidget">
-  <div class="chat-header">
-    <i class="fas fa-robot" style="color: var(--accent);"></i>
-    <h3>Ask Virtual Kasturi</h3>
-    <span id="chatbot-close" style="cursor:pointer; margin-left:auto;">×</span>
-  </div>
-  <div id="chatbot-messages" style="flex:1; padding:10px; overflow-y:auto;">
-    <div class="bot">Hi! I'm Virtual_Kasturi. Ask me anything about my professional experience.</div>
-  </div>
-  <div style="display:flex; border-top:1px solid rgba(100,255,218,0.2);">
-    <input id="chatbot-input" type="text" placeholder="Type your question..." style="flex:1; padding:10px; border:none; background:var(--highlight); color:var(--text);"/>
-    <button id="chatbot-send" style="background:var(--accent); border:none; color:var(--bg); padding:0 15px; cursor:pointer;">Send</button>
-  </div>
-</div>
-
-</div>
+<!-- n8n Chat Container -->
+<div class="n8n-chat-container" id="n8nChatContainer"></div>
 
 <aside>
   <div>
@@ -992,5 +928,26 @@
     });
   });
 
+  // Initialize n8n chat
+  document.addEventListener('DOMContentLoaded', () => {
+    import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js')
+      .then(({ createChat }) => {
+        createChat({
+          webhookUrl: 'https://kasturidevproject.app.n8n.cloud/webhook/332925f2-37fd-4c13-9384-fb064fdc617a/chat',
+          target: '#n8nChatContainer',
+          defaultOpen: false,
+          title: 'Ask Virtual Kasturi',
+          subtitle: 'Ask me anything about my professional experience',
+          primaryColor: '#64ffda',
+          textColor: '#e2e8f0',
+          backgroundColor: '#0a192f',
+          buttonIcon: '<i class="fas fa-robot"></i>'
+        });
+      })
+      .catch(err => {
+        console.error('Failed to load n8n chat:', err);
+      });
+  });
+</script>
 </body>
 </html>
