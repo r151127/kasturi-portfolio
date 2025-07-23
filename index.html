@@ -1049,8 +1049,101 @@
       }
     });
   });
+// Chatbot functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const chatbotToggle = document.getElementById('chatbotToggle');
+  const chatbotWindow = document.getElementById('chatbotWindow');
+  const chatbotMessages = document.getElementById('chatbotMessages');
+  const chatbotInput = document.getElementById('chatbotInput');
+  const chatbotSend = document.getElementById('chatbotSend');
 
-<!-- Custom Chat UI Container (matches your design exactly) -->
+  // Toggle chatbot window
+  chatbotToggle.addEventListener('click', function() {
+    chatbotWindow.classList.toggle('active');
+  });
+
+  // Send message function
+  function sendMessage() {
+    const message = chatbotInput.value.trim();
+    if (message) {
+      // Add user message
+      addMessage(message, 'user');
+      chatbotInput.value = '';
+      
+      // Show typing indicator
+      showTypingIndicator();
+      
+      // Simulate bot response after a delay
+      setTimeout(() => {
+        removeTypingIndicator();
+        const botResponse = getBotResponse(message);
+        addMessage(botResponse, 'bot');
+      }, 1000);
+    }
+  }
+
+  // Send message on button click
+  chatbotSend.addEventListener('click', sendMessage);
+
+  // Send message on Enter key
+  chatbotInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
+
+  // Add message to chat
+  function addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', sender + '-message');
+    messageDiv.textContent = text;
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  // Show typing indicator
+  function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('typing-indicator');
+    typingDiv.id = 'typingIndicator';
+    typingDiv.innerHTML = `
+      <span>Virtual Kasturi is typing</span>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    `;
+    chatbotMessages.appendChild(typingDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  // Remove typing indicator
+  function removeTypingIndicator() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+      typingIndicator.remove();
+    }
+  }
+
+  // Simple bot response logic
+  function getBotResponse(userMessage) {
+    const lowerMessage = userMessage.toLowerCase();
+    
+    if (lowerMessage.includes('project') || lowerMessage.includes('experience')) {
+      return "I've managed several high-impact projects including CRM automation, AI integration, and process optimization. Which specific area are you interested in?";
+    } else if (lowerMessage.includes('skill') || lowerMessage.includes('expertise')) {
+      return "My core skills include Agile project management, CRM automation, data analytics, and strategic planning. I specialize in translating complex requirements into actionable plans.";
+    } else if (lowerMessage.includes('contact') || lowerMessage.includes('reach')) {
+      return "You can reach me via email at vankelakasturi@gmail.com or phone at +91 88970 05266. My LinkedIn profile is also available in the sidebar.";
+    } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+      return "Hello! How can I help you today? You can ask about my professional background, projects, or skills.";
+    } else {
+      return "I'm sorry, I didn't understand that. Could you rephrase your question? I can tell you about my professional experience, projects, or skills.";
+    }
+  }
+});
+  
+</script>
+<!-- Chatbot Container -->
 <div class="chatbot-container">
   <button class="chatbot-toggle" id="chatbotToggle">
     <i class="fas fa-robot"></i>
@@ -1060,9 +1153,7 @@
       <i class="fas fa-robot" style="color: var(--accent);"></i>
       <h3>Virtual Kasturi Assistant</h3>
     </div>
-    
-    <!-- Static welcome message (your exact content) -->
-    <div id="static-welcome-message">
+    <div class="chatbot-messages" id="chatbotMessages">
       <div class="message bot-message">
         Hi there! I'm Virtual Kasturi. Ask me anything about my professional experience, projects, or skills.
       </div>
@@ -1076,45 +1167,13 @@
         </ul>
       </div>
     </div>
-    
-    <!-- n8n chat container (hidden until first interaction) -->
-    <div id="n8n-chat" style="display: none;"></div>
+    <div class="chatbot-input-container">
+      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your question...">
+      <button class="chatbot-send" id="chatbotSend">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
   </div>
 </div>
-
-<!-- n8n Integration -->
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<script type="module">
-  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-  // Initialize n8n chat
-  createChat({
-    webhookUrl: 'https://kasturidevproject.app.n8n.cloud/webhook/332925f2-37fd-4c13-9384-fb064fdc617a/chat',
-    target: '#n8n-chat',
-    welcomeMessage: false, // Disable n8n's default welcome
-    theme: {
-      primaryText: '#e2e8f0',
-      secondaryText: '#94a3b8',
-      primaryBg: '#112240',
-      secondaryBg: '#0a192f',
-      accent: '#64ffda'
-    }
-  });
-
-  // Toggle functionality
-  document.getElementById('chatbotToggle').addEventListener('click', function() {
-    const chatWindow = document.getElementById('chatbotWindow');
-    chatWindow.classList.toggle('active');
-    
-    // Switch between static message and n8n chat
-    if (chatWindow.classList.contains('active')) {
-      document.getElementById('static-welcome-message').style.display = 'none';
-      document.getElementById('n8n-chat').style.display = 'block';
-    } else {
-      document.getElementById('static-welcome-message').style.display = 'block';
-      document.getElementById('n8n-chat').style.display = 'none';
-    }
-  });
-</script>
 </body>
 </html>
