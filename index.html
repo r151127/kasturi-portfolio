@@ -1049,13 +1049,16 @@
       }
     });
   });
-// Chatbot functionality
+// Enhanced Chatbot functionality with comprehensive knowledge base
 document.addEventListener('DOMContentLoaded', function() {
   const chatbotToggle = document.getElementById('chatbotToggle');
   const chatbotWindow = document.getElementById('chatbotWindow');
   const chatbotMessages = document.getElementById('chatbotMessages');
   const chatbotInput = document.getElementById('chatbotInput');
   const chatbotSend = document.getElementById('chatbotSend');
+  
+  let conversationContext = '';
+  let lastResponseType = '';
 
   // Toggle chatbot window
   chatbotToggle.addEventListener('click', function() {
@@ -1073,10 +1076,10 @@ document.addEventListener('DOMContentLoaded', function() {
       // Show typing indicator
       showTypingIndicator();
       
-      // Simulate bot response after a delay
+      // Get bot response after a delay
       setTimeout(() => {
         removeTypingIndicator();
-        const botResponse = getBotResponse(message);
+        const botResponse = getEnhancedBotResponse(message);
         addMessage(botResponse, 'bot');
       }, 1000);
     }
@@ -1096,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function addMessage(text, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender + '-message');
-    messageDiv.textContent = text;
+    messageDiv.innerHTML = text; // Changed to innerHTML to support HTML formatting
     chatbotMessages.appendChild(messageDiv);
     chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
   }
@@ -1124,21 +1127,116 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Simple bot response logic
-  function getBotResponse(userMessage) {
-    const lowerMessage = userMessage.toLowerCase();
+  // Enhanced bot response system
+  function getEnhancedBotResponse(userMessage) {
+    const input = userMessage.toLowerCase().trim();
     
-    if (lowerMessage.includes('project') || lowerMessage.includes('experience')) {
-      return "I've managed several high-impact projects including CRM automation, AI integration, and process optimization. Which specific area are you interested in?";
-    } else if (lowerMessage.includes('skill') || lowerMessage.includes('expertise')) {
-      return "My core skills include Agile project management, CRM automation, data analytics, and strategic planning. I specialize in translating complex requirements into actionable plans.";
-    } else if (lowerMessage.includes('contact') || lowerMessage.includes('reach')) {
-      return "You can reach me via email at vankelakasturi@gmail.com or phone at +91 88970 05266. My LinkedIn profile is also available in the sidebar.";
-    } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
-      return "Hello! How can I help you today? You can ask about my professional background, projects, or skills.";
-    } else {
-      return "I'm sorry, I didn't understand that. Could you rephrase your question? I can tell you about my professional experience, projects, or skills.";
+    // Handle greetings with exact response as specified
+    const greetingKeywords = ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening'];
+    if (greetingKeywords.some(keyword => input.includes(keyword))) {
+      lastResponseType = 'greeting';
+      return "Hi there! I'm here to help you learn about my professional experience, projects, and skills. What would you like to know?";
     }
+
+    // Handle "more details" requests
+    if (input.includes('more details') || input.includes('tell me more') || input.includes('elaborate')) {
+      return getDetailedResponse(lastResponseType);
+    }
+
+    // Handle recent/latest project questions
+    if (input.includes('recent') || input.includes('latest') || input.includes('current')) {
+      lastResponseType = 'recent_project';
+      return "My most recent project is the Bulk UTM Builder with TinyURL Shortening & Analytics completed in June 2025. I developed an end-to-end platform that automates UTM generation and tracking, creating 10,000+ links in 6 months with 4x faster campaign launches and saving 25+ hours monthly. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle experience questions
+    if (input.includes('experience') || input.includes('work') || input.includes('career') || input.includes('background')) {
+      lastResponseType = 'experience';
+      return "I'm currently a Project Manager at NxtWave, where I've been leading strategic initiatives since February 2024. I have over 4 years of experience in project management, progressing through roles at iB Hubs, PinScale, and NxtWave. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle skills questions
+    if (input.includes('skill') || input.includes('expertise') || input.includes('capabilities') || input.includes('what can you do')) {
+      lastResponseType = 'skills';
+      return "My core expertise includes Agile project management, CRM automation, AI integration, and data analytics. I specialize in transforming complex operational challenges into streamlined, automated solutions that drive measurable business impact. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle general project questions
+    if (input.includes('project') && !input.includes('recent') && !input.includes('latest')) {
+      lastResponseType = 'projects';
+      return "I've led several high-impact initiatives including CRM Ecosystem Transformation (saving ₹30K monthly), Call Intelligence & AI Enablement (73% cost reduction), and Webinar Platform Evolution (4+ hours saved weekly per team). Each project delivered significant operational improvements and cost savings. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle CRM-related questions
+    if (input.includes('crm') || input.includes('salesforce') || input.includes('customer relationship')) {
+      lastResponseType = 'crm';
+      return "I've led comprehensive CRM transformations, including system migrations and automated lead management implementations. My CRM Ecosystem Transformation project reduced lead assignment time from 9 days to 1.7 days while processing 161,140+ leads with 99.3% accuracy. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle AI-related questions
+    if (input.includes('ai') || input.includes('artificial intelligence') || input.includes('machine learning') || input.includes('automation')) {
+      lastResponseType = 'ai';
+      return "I've implemented AI-powered solutions including call auditing systems that reduced audit time from 4-5 minutes to 1 minute per call, and AI-driven data cleaning platforms that cut processing time from hours to minutes. My focus is on practical AI applications that deliver immediate operational value. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle analytics/data questions
+    if (input.includes('analytics') || input.includes('dashboard') || input.includes('data') || input.includes('reporting')) {
+      lastResponseType = 'analytics';
+      return "I've developed enterprise-wide analytics ecosystems including 15+ specialized dashboards, performance tracking systems, and attribution models. My Analytics & Insights Framework saved 7+ hours monthly on calculations and automated daily performance reporting across all business verticals. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle contact questions
+    if (input.includes('contact') || input.includes('reach') || input.includes('email') || input.includes('phone') || input.includes('linkedin')) {
+      return "You can reach me at <strong>vankelakasturi@gmail.com</strong> or call me at <strong>+91 88970 05266</strong>. I'm also active on LinkedIn and you can download my complete resume from the links in the sidebar.";
+    }
+
+    // Handle certification questions
+    if (input.includes('certification') || input.includes('certificate') || input.includes('qualification') || input.includes('education')) {
+      lastResponseType = 'certifications';
+      return "I recently completed Google Agile Project Management (Dec 2024) and Google Project Execution (Nov 2024) certifications. I was also selected for Asia's largest LoRaWAN conference and received the Prathibha Award for academic excellence. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle achievements/accomplishments
+    if (input.includes('achievement') || input.includes('accomplishment') || input.includes('award') || input.includes('recognition')) {
+      lastResponseType = 'achievements';
+      return "I've delivered measurable results across all my projects - from saving ₹30K monthly through CRM automation to achieving 73% cost reductions in call management systems. I was also selected for Asia's largest LoRaWAN conference and won the Prathibha Award for academic excellence. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Handle team/leadership questions
+    if (input.includes('team') || input.includes('leadership') || input.includes('management') || input.includes('lead')) {
+      lastResponseType = 'leadership';
+      return "I lead cross-functional teams and specialize in change management, having successfully executed department-wide restructuring with 100% knowledge transfer completion. I've also implemented team capability development programs and training initiatives that reduced external dependencies. <em>If you'd like more details, reply with 'More details' or ask a follow-up.</em>";
+    }
+
+    // Default response for unrecognized questions
+    return "I don't have that information right now. You can ask me about my professional experience, recent projects, skills, or how to contact me. What would you like to know?";
+  }
+
+  // Detailed responses for follow-up questions (5 sentences max)
+  function getDetailedResponse(responseType) {
+    const detailedResponses = {
+      'recent_project': "The Bulk UTM Builder project addressed a critical bottleneck in our marketing operations where creating campaign links was taking too much manual effort. I built the platform using Google Apps Script integrated with TinyURL's API, allowing bulk processing of thousands of URLs simultaneously. The system includes real-time analytics tracking, automated compliance checking, and a user-friendly interface that requires no technical knowledge. The 4x speed improvement means our marketing team can launch campaigns much faster, while the 99% compliance rate ensures our attribution data remains reliable for strategic decisions. This project demonstrates how smart automation can transform routine tasks into strategic advantages.",
+      
+      'experience': "My career progression shows a clear focus on operational excellence and strategic project delivery. At iB Hubs, I learned project coordination fundamentals and developed my analytical thinking skills. PinScale taught me client management and how to deliver measurable operational efficiencies under pressure. At NxtWave, I've evolved from executing assigned projects to leading strategic initiatives that shape our operational landscape. My current role involves managing multiple high-impact projects simultaneously while building systems that enable long-term organizational growth.",
+      
+      'skills': "My technical expertise spans CRM architecture, where I design complete ecosystems rather than just configure existing systems. I'm particularly strong in process automation using Google Apps Script, having built solutions that save hundreds of hours monthly across teams. My data analytics capabilities include building predictive models, creating specialized dashboards, and implementing attribution systems that drive strategic decisions. My leadership style focuses on empowering teams through training and knowledge transfer, ensuring solutions remain sustainable even as teams evolve. I excel at translating complex business requirements into practical, implementable solutions.",
+      
+      'projects': "My project portfolio demonstrates consistent delivery of operational improvements with quantifiable business impact. The CRM Ecosystem Transformation wasn't just about technology migration - I architected governance frameworks and quality processes that prevent future issues. My Call Intelligence project combined AI implementation with strategic vendor negotiation, achieving both quality improvements and significant cost savings. The Webinar Platform Evolution shows my ability to enhance user experiences while building scalable infrastructure. Each project creates foundation for future innovations while solving immediate operational challenges.",
+      
+      'crm': "My CRM expertise goes far beyond basic configuration - I architect complete data ecosystems that support strategic decision-making. In the transformation project, I implemented automated quality checks, governance frameworks, and lead assignment algorithms that reduced processing time by 80%. I've worked extensively with Salesforce, Floww.ai, and custom CRM solutions, focusing on data integrity and process automation. My approach ensures CRM systems become strategic assets rather than just data storage tools. The lead management optimizations I've implemented have consistently improved conversion rates while reducing operational overhead.",
+      
+      'ai': "My AI implementations focus on practical solutions that deliver immediate operational value rather than experimental technology. The call auditing system I developed uses natural language processing to automatically evaluate conversation quality, providing consistent feedback that human auditors couldn't scale. I've also built AI-powered data cleaning solutions that understand context and business rules, dramatically reducing manual data preparation time. My approach involves careful evaluation of AI tools, strategic vendor negotiations, and comprehensive training programs to ensure successful adoption. Each AI solution I implement includes clear ROI metrics and sustainable operational processes.",
+      
+      'analytics': "My analytics framework provides actionable insights rather than just pretty dashboards. I've built predictive models for lead scoring, attribution systems that track marketing effectiveness across multiple touchpoints, and performance measurement frameworks that align with business objectives. The 15+ specialized dashboards I've created each serve specific decision-making needs, from daily operational monitoring to strategic planning. My approach includes automated data quality checks, real-time alerting for critical metrics, and user training to ensure insights drive actual business decisions. The systems I've built have become essential tools for strategic planning across multiple departments.",
+      
+      'leadership': "My leadership philosophy centers on empowering team members through knowledge transfer and systematic capability building. During the organizational restructuring I led, I ensured 100% knowledge transfer completion and trained alternate resources for 75% of critical functions. I develop comprehensive SOPs and training programs that enable teams to operate independently and make informed decisions. My change management approach involves clear communication, structured transition plans, and continuous monitoring to ensure no operational disruptions. I believe in building systems and processes that make teams more effective rather than dependent on individual expertise.",
+      
+      'achievements': "My track record shows consistent delivery of projects that exceed their original success metrics. The ₹30K monthly savings from CRM automation has continued to compound, while the 73% cost reduction in call management represents ongoing operational efficiency. Beyond financial metrics, I've improved data accuracy rates to 99.3%, reduced processing times by up to 80%, and created systems that handle thousands of daily transactions reliably. My recognition at conferences and academic awards reflects both technical competence and strategic thinking. Each achievement builds foundation for larger, more impactful initiatives.",
+      
+      'certifications': "My recent Google certifications in Agile Project Management and Project Execution complement my practical experience with formal methodology training. These certifications validated my approach to iterative delivery, stakeholder management, and risk mitigation that I've developed through years of hands-on project leadership. Being selected for Asia's largest LoRaWAN conference recognized my technical expertise in IoT and connectivity solutions. The Prathibha Award for academic excellence demonstrates my commitment to continuous learning and analytical thinking. I believe in combining formal training with practical application to deliver superior project outcomes."
+    };
+    
+    return detailedResponses[responseType] || "I'd be happy to provide more specific details if you could clarify which aspect interests you most.";
   }
 });
   
