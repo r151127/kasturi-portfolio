@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline Applications Digitization | Kasturi Vankela</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c28;
+      --border: #2a2a3d;
+      --accent: #6c63ff;
+      --accent2: #a78bfa;
+      --accent3: #38bdf8;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --tag-bg: rgba(108,99,255,0.12);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.7;
+    }
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10,10,15,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 1rem 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    nav a:hover { color: var(--accent2); }
+    nav .sep { color: var(--border); }
+    nav .current { color: var(--text); font-weight: 600; }
+
+    .hero { padding: 7rem 2rem 3rem; max-width: 900px; margin: 0 auto; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(16,185,129,0.1); border: 1px solid var(--success);
+      color: #34d399; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.35rem 0.8rem; border-radius: 999px; margin-bottom: 1.25rem;
+    }
+    .badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--success); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.2;
+      background: linear-gradient(135deg, #e2e8f0 30%, #34d399);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 1.5rem;
+      color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;
+    }
+    .hero-summary {
+      font-size: 1.05rem; color: var(--text-muted);
+      border-left: 3px solid var(--success); padding-left: 1.25rem; max-width: 780px;
+    }
+
+    /* SCALE VISUALISER */
+    .scale-band {
+      background: var(--surface); border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border); padding: 2.5rem 2rem; margin: 2rem 0;
+    }
+    .scale-inner { max-width: 900px; margin: 0 auto; }
+    .scale-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #34d399; margin-bottom: 1.25rem;
+    }
+    .scale-row {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+    }
+    .scale-tag {
+      font-size: 0.82rem; font-weight: 600; color: var(--text-muted);
+      min-width: 80px;
+    }
+    .bar-wrap { flex: 1; background: var(--surface2); border-radius: 999px; height: 10px; overflow: hidden; }
+    .bar { height: 100%; border-radius: 999px; transition: width 1s ease; }
+    .bar.before { background: var(--border); width: 6%; }
+    .bar.after { background: linear-gradient(90deg, #10b981, #38bdf8); width: 100%; }
+    .bar-value { font-size: 0.9rem; font-weight: 700; min-width: 60px; text-align: right; }
+    .bar-value.before { color: var(--text-muted); }
+    .bar-value.after { color: #34d399; }
+    .scale-footnote {
+      margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);
+      background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 8px; padding: 0.75rem 1rem; display: inline-block;
+    }
+    .scale-footnote strong { color: #34d399; }
+
+    /* METRICS */
+    .metrics { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .metric-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem; text-align: center;
+    }
+    .metric-value {
+      font-size: 2rem; font-weight: 800;
+      background: linear-gradient(135deg, #34d399, var(--accent3));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;
+    }
+    .metric-label { color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.4rem; }
+
+    /* BODY */
+    .body-content { max-width: 900px; margin: 0 auto; padding: 2rem 2rem 4rem; display: grid; gap: 2.5rem; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #34d399; margin-bottom: 0.75rem;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.75rem;
+    }
+    .card h2 { font-size: 1.05rem; font-weight: 600; margin-bottom: 1rem; }
+    .card p, .card li { color: var(--text-muted); font-size: 0.95rem; }
+    .card ul { padding-left: 1.25rem; display: grid; gap: 0.5rem; }
+
+    /* PHASES */
+    .phases { display: grid; gap: 1rem; }
+    .phase {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 1rem; align-items: start;
+    }
+    .phase-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3);
+      color: #34d399; font-weight: 700; font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .phase-body h3 { font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .phase-body p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* IMPACT SPLIT */
+    .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .impact-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.25rem;
+    }
+    .impact-card h3 {
+      font-size: 0.82rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 0.75rem;
+    }
+    .impact-card.quant h3 { color: var(--accent3); }
+    .impact-card.qual h3 { color: #34d399; }
+    .impact-card ul { padding-left: 1.1rem; display: grid; gap: 0.45rem; }
+    .impact-card li { color: var(--text-muted); font-size: 0.88rem; }
+
+    .learning {
+      background: linear-gradient(135deg, rgba(16,185,129,0.07), rgba(56,189,248,0.05));
+      border: 1px solid rgba(16,185,129,0.25); border-radius: 12px; padding: 1.75rem;
+    }
+    .learning h2 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+    .learning p { color: var(--text-muted); font-size: 0.93rem; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);
+      color: #34d399; font-size: 0.75rem; font-weight: 500;
+      padding: 0.3rem 0.75rem; border-radius: 999px;
+    }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-pill {
+      background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.2);
+      color: var(--accent3); font-size: 0.78rem; font-weight: 500;
+      padding: 0.3rem 0.8rem; border-radius: 6px;
+    }
+    .back-btn {
+      display: flex; width: fit-content; align-items: center; gap: 0.5rem;
+      margin: 2rem 2rem; padding: 0.65rem 1.4rem;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-muted); text-decoration: none;
+      border-radius: 8px; font-size: 0.85rem; transition: all 0.2s;
+    }
+    .back-btn:hover { border-color: var(--success); color: #34d399; }
+
+    @media (max-width: 600px) {
+      .impact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← Home</a>
+  <span class="sep">/</span>
+  <a href="../index.html#projects">Projects</a>
+  <span class="sep">/</span>
+  <span class="current">Offline App Digitization</span>
+</nav>
+
+<div class="hero">
+  <div class="badge"><span class="dot"></span> Digital Transformation · Sep 2025 – Aug 2026</div>
+  <h1>Offline Applications Digitization &amp; CRM Enablement</h1>
+  <div class="hero-meta">
+    <span>🏢 NxtWave</span>
+    <span>📅 Sep 2025 – Aug 2026</span>
+    <span>🔧 OCR · CRM Integration · Operations Scaling</span>
+  </div>
+  <p class="hero-summary">
+    Led end-to-end digitization of offline 12th-grade student applications — scaling processing capacity 16× YoY through OCR-based extraction, automated data cleansing, privacy-compliant workflows, and CRM integration — enabling Presales teams to act on leads at scale with minimal manual intervention.
+  </p>
+</div>
+
+<!-- SCALE VISUALISER -->
+<div class="scale-band">
+  <div class="scale-inner">
+    <div class="scale-label">Processing capacity — Before vs After</div>
+    <div class="scale-row">
+      <div class="scale-tag">Before</div>
+      <div class="bar-wrap"><div class="bar before"></div></div>
+      <div class="bar-value before">50K apps</div>
+    </div>
+    <div class="scale-row">
+      <div class="scale-tag">After</div>
+      <div class="bar-wrap"><div class="bar after"></div></div>
+      <div class="bar-value after">8L apps</div>
+    </div>
+    <div class="scale-footnote"><strong>16× scale-up</strong> in annual processing capacity, same team size</div>
+  </div>
+</div>
+
+<div class="metrics">
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-value">16×</div>
+      <div class="metric-label">Processing capacity scale-up</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">8L</div>
+      <div class="metric-label">Applications processed (YoY)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">↓ Manual</div>
+      <div class="metric-label">Minimal human intervention required</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">100%</div>
+      <div class="metric-label">Privacy-compliant workflow</div>
+    </div>
+  </div>
+</div>
+
+<div class="body-content">
+
+  <!-- WHAT WAS BUILT -->
+  <div class="card">
+    <div class="section-label">What was built</div>
+    <h2>End-to-End Digitization Workflow</h2>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-num">1</div>
+        <div class="phase-body">
+          <h3>OCR-Based Data Extraction</h3>
+          <p>Automated extraction from physical 12th-grade application forms using OCR pipelines, replacing manual data entry at scale.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">2</div>
+        <div class="phase-body">
+          <h3>Automated Data Cleansing</h3>
+          <p>Standardisation, deduplication, and validation rules applied post-extraction to ensure CRM-ready data quality.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">3</div>
+        <div class="phase-body">
+          <h3>Privacy-Compliant Workflow Design</h3>
+          <p>Designed handling and storage protocols meeting data privacy standards across bulk student data at 8L application volume.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">4</div>
+        <div class="phase-body">
+          <h3>CRM Integration for Presales</h3>
+          <p>Piped cleaned, validated lead data into the CRM, giving Presales teams immediate, actionable access to offline applicants.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPACT -->
+  <div>
+    <div class="section-label">Impact</div>
+    <div class="impact-grid">
+      <div class="impact-card quant">
+        <h3>Quantitative</h3>
+        <ul>
+          <li>50K → 8L applications: 16× YoY capacity scale-up</li>
+          <li>Minimal manual intervention across the entire pipeline</li>
+          <li>Presales team able to act on offline leads at scale, same day</li>
+        </ul>
+      </div>
+      <div class="impact-card qual">
+        <h3>Qualitative</h3>
+        <ul>
+          <li>Improved data accuracy and lead availability for Presales ops</li>
+          <li>Processing speed increased dramatically vs manual workflows</li>
+          <li>Data privacy compliance maintained at high volume</li>
+          <li>Operational efficiency gains across the digitization chain</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNING -->
+  <div class="learning">
+    <div class="section-label">Key Learning</div>
+    <h2>Automation + CRM integration compounds at scale</h2>
+    <p>
+      Large-scale digitization combined with automation and CRM integration doesn't just improve one metric — it compounds across operational scalability, data reliability, and team productivity simultaneously. The biggest unlock was making offline data a first-class citizen in the CRM: once leads were flowing in at the same quality as digital leads, Presales could treat them identically.
+    </p>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="card">
+    <div class="section-label">Skills demonstrated</div>
+    <div class="skills-grid">
+      <span class="skill-pill">Process Automation</span>
+      <span class="skill-pill">OCR Implementation</span>
+      <span class="skill-pill">CRM Integration</span>
+      <span class="skill-pill">Workflow Design</span>
+      <span class="skill-pill">Data Quality Management</span>
+      <span class="skill-pill">Stakeholder Coordination</span>
+      <span class="skill-pill">Operations Scaling</span>
+    </div>
+  </div>
+
+  <!-- TAGS -->
+  <div>
+    <div class="section-label">Tags</div>
+    <div class="tags">
+      <span class="tag">Process Automation</span>
+      <span class="tag">CRM</span>
+      <span class="tag">Operations Excellence</span>
+      <span class="tag">Digital Transformation</span>
+      <span class="tag">Data Management</span>
+    </div>
+  </div>
+
+</div>
+
+<a class="back-btn" href="../index.html#projects">← Back to all projects</a>
+
+</body>
+</html>
